@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ludo Game (Starter)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --cell-size: 28px;
+      --board-gap: 4px;
+      --red: #e53935;
+      --green: #43a047;
+      --yellow: #fdd835;
+      --blue: #1e88e5;
+      --board-bg: #ffffff;
+      --track: #e0e0e0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f7;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .game-wrap {
+      display: grid;
+      gap: 1rem;
+      width: min(95vw, 900px);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .turn {
+      font-weight: 700;
+    }
+
+    .dice-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .dice {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease;
+    }
+    .dice.rolling {
+      animation: roll 0.4s ease;
+    }
+    @keyframes roll {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.05); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:hover { background: #1d4ed8; }
+    button:active { transform: translateY(1px); }
+
+    /* Board */
+    .board {
+      background: var(--board-bg);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      display: grid;
+      place-items: center;
+    }
+
+    .ludo-board {
+      display: grid;
+      grid-template-columns: repeat(15, var(--cell-size));
+      grid-template-rows: repeat(15, var(--cell-size));
+      gap: var(--board-gap);
+      background: #eee;
+      padding: 8px;
+      border-radius: 10px;
+    }
+
+    .cell {
+      background: var(--track);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    /* Home bases */
+    .base {
+      grid-column: span 6;
+      grid-row: span 6;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .base-red { background: var(--red); }
+    .base-green { background: var(--green); }
+    .base-yellow { background: var(--yellow); color: #222; }
+    .base-blue { background: var(--blue); }
+
+    .base-inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 6px;
+      width: 70%;
+      height: 70%;
+    }
+    .base-slot {
+      background: rgba(255,255,255,0.25);
+      border-radius: 6px;
+      position: relative;
+    }
+
+    /* Center */
+    .center {
+      grid-column: 7 / span 3;
+      grid-row: 7 / span 3;
+      background: conic-gradient(
+        var(--red) 0deg 90deg,
+        var(--green) 90deg 180deg,
+        var(--yellow) 180deg 270deg,
+        var(--blue) 270deg 360deg
+      );
+      border-radius: 8px;
+      position: relative;
+    }
+
+    /* Tokens */
+    .token {
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      transition: all 0.25s ease;
+      z-index: 2;
+    }
+    .token.red { background: var(--red); }
+    .token.green { background: var(--green); }
+    .token.yellow { background: var(--yellow); }
+    .token.blue { background: var(--blue); }
+
+    .token.clickable {
+      cursor: pointer;
+      animation: pulse 0.9s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.15); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Simple track coloring (optional) */
+    .cell.red-track { background: #ffcdd2; }
+    .cell.green-track { background: #c8e6c9; }
+    .cell.yellow-track { background: #fff9c4; }
+    .cell.blue-track { background: #bbdefb; }
+
+    .info {
+      background: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-wrap">
+    <div class="header">
+      <div class="turn" id="turnText">Turn: Red</div>
+      <div class="dice-area">
+        <div class="dice" id="dice">1</div>
+        <button id="rollBtn">Roll Dice</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="ludo-board" id="board">
+        <!-- Bases -->
+        <div class="base base-red" style="grid-column: 1 / span 6; grid-row: 1 / span 6;">
+          <div class="base-inner" id="base-red"></div>
+        </div>
+        <div class="base base-green" style="grid-column: 10 / span 6; grid-row: 1 / span 6;">
+          <div class="base-inner" id="base-green"></div>
+        </div>
+        <div class="base base-yellow" style="grid-column: 1 / span 6; grid-row: 10 / span 6;">
+          <div class="base-inner" id="base-yellow"></div>
+        </div>
+        <div class="base base-blue" style="grid-column: 10 / span 6; grid-row: 10 / span 6;">
+          <div class="base-inner" id="base-blue"></div>
+        </div>
+        <div class="center"></div>
+
+        <!-- Track cells will be generated by JS -->
+      </div>
+    </div>
+
+    <div class="info" id="info">
+      Roll the dice. If you get 6, you can move a token out of base. Otherwise, move an existing token.
+    </div>
+  </div>
+
+  <script>
+    // Basic Ludo logic (simplified):
+    // - 4 players: red, green, yellow, blue
+    // - Each has 4 tokens.
+    // - Track length: 52 main cells + home stretch (simplified).
+    // This is a teaching skeleton, not a full rule-perfect Ludo.
+
+    const players = ['red', 'green', 'yellow', 'blue'];
+    const playerNames = { red: 'Red', green: 'Green', yellow: 'Yellow', blue: 'Blue' };
+    let currentPlayerIndex = 0;
+
+    // Each token: { player, id (0-3), position: -1 (in base), 0..51 (main track), 100+ (home stretch) }
+    const tokens = [];
+    players.forEach(p => {
+      for (let i = 0; i < 4; i++) {
+        tokens.push({ player: p, id: i, position: -1, finished: false });
+      }
+    });
+
+    const board = document.getElementById('board');
+    const diceEl = document.getElementById('dice');
+    const rollBtn = document.getElementById('rollBtn');
+    const turnText = document.getElementById('turnText');
+    const info = document.getElementById('info');
+
+    // Create base slots
+    players.forEach(p => {
+      const base = document.getElementById(`base-${p}`);
+      for (let i = 0; i < 4; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'base-slot';
+        slot.dataset.player = p;
+        slot.dataset.tokenId = i;
+        base.appendChild(slot);
+      }
+    });
+
+    // Create a simple outer track (52 cells) visually around the center
+    // We'll just place them in a snake pattern for demonstration.
+    const trackCells = [];
+    let rowStart = 1;
+    let colStart = 7;
+
+    // To keep it simple, we'll generate 52 cells in a linear list and place them
+    // in a rough path around the board using grid positions manually is complex.
+    // Instead, we will just create a 1D strip below the board for movement visualization.
+    // For a real game, you would map each step to exact (row, col).
+
+    const trackContainer = document.createElement('div');
+    trackContainer.style.gridColumn = '1 / span 15';
+    trackContainer.style.gridRow = '16 / span 1';
+    trackContainer.style.display = 'grid';
+    trackContainer.style.gridTemplateColumns = `repeat(52, var(--cell-size))`;
+    trackContainer.style.gap = '2px';
+    trackContainer.style.marginTop = '6px';
+
+    for (let i = 0; i < 52; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.index = i;
+      // Simple coloring pattern
+      if (i < 13) cell.classList.add('red-track');
+      else if (i < 26) cell.classList.add('green-track');
+      else if (i < 39) cell.classList.add('yellow-track');
+      else cell.classList.add('blue-track');
+
+      trackContainer.appendChild(cell);
+      trackCells.push(cell);
+    }
+    board.appendChild(trackContainer);
+
+    // Render tokens
+    function renderTokens() {
+      // Clear old tokens
+      document.querySelectorAll('.token').forEach(t => t.remove());
+
+      tokens.forEach(tok => {
+        const el = document.createElement('div');
+        el.className = `token ${tok.player}`;
+        el.dataset.player = tok.player;
+        el.dataset.tokenId = tok.id;
+
+        if (tok.position === -1) {
+          // In base
+          const baseSlot = document.querySelector(
+            `.base-slot[data-player="${tok.player}"][data-token-id="${tok.id}"]`
+          );
+          baseSlot.appendChild(el);
+        } else if (tok.position >= 0 && tok.position < 52) {
+          // On main track
+          const cell = trackCells[tok.position];
+          cell.appendChild(el);
+        } else {
+          // Finished / home (simplified: just place in center visually)
+          const center = document.querySelector('.center');
+          el.style.opacity = '0.7';
+          center.appendChild(el);
+        }
+
+        // Click to move if it's this player's turn and move is allowed
+        el.addEventListener('click', () => onTokenClick(tok));
+      });
+    }
+
+    let lastDiceValue = null;
+
+    function onTokenClick(tok) {
+      if (tok.finished) return;
+      const current = players[currentPlayerIndex];
+      if (tok.player !== current) return;
+      if (lastDiceValue === null) return;
+
+      const moved = tryMoveToken(tok, lastDiceValue);
+      if (moved) {
+        // If rolled 6, player gets another turn; else next player
+        if (lastDiceValue !== 6) {
+          nextPlayer();
+        } else {
+          info.textContent = `${playerNames[current]} rolled a 6 and gets another turn.`;
+        }
+        lastDiceValue = null;
+        rollBtn.disabled = false;
+        renderTokens();
+      } else {
+        info.textContent = `That token cannot move with ${lastDiceValue}. Try another or roll again if no moves.`;
+      }
+    }
+
+    function tryMoveToken(tok, dice) {
+      if (tok.position === -1) {
+        // In base: can only move out on 6
+        if (dice === 6) {
+          tok.position = getStartIndex(tok.player);
+          return true;
+        }
+        return false;
+      }
+      // Simple movement: just advance on main track (no collision, no safe zones, no home stretch logic)
+      const newPos = (tok.position + dice) % 52;
+      tok.position = newPos;
+      return true;
+    }
+
+    function getStartIndex(player) {
+      // Starting positions on the 52-cell track
+      switch (player) {
+        case 'red': return 0;
+        case 'green': return 13;
+        case 'yellow': return 26;
+        case 'blue': return 39;
+        default: return 0;
+      }
+    }
+
+    function nextPlayer() {
+      currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+      updateTurnUI();
+    }
+
+    function updateTurnUI() {
+      const p = players[currentPlayerIndex];
+      turnText.textContent = `Turn: ${playerNames[p]}`;
+      turnText.style.color =
+        p === 'red' ? 'var(--red)' :
+        p === 'green' ? 'var(--green)' :
+        p === 'yellow' ? '#b7950b' : 'var(--blue)';
+      info.textContent = `Roll the dice. If you get 6, you can move a token out of base. Otherwise, move an existing token.`;
+    }
+
+    rollBtn.addEventListener('click', () => {
+      if (rollBtn.disabled) return;
+      rollBtn.disabled = true;
+      diceEl.classList.add('rolling');
+      setTimeout(() => diceEl.classList.remove('rolling'), 400);
+
+      const diceValue = Math.floor(Math.random() * 6) + 1;
+      lastDiceValue = diceValue;
+      diceEl.textContent = diceValue;
+
+      const current = players[currentPlayerIndex];
+      info.textContent = `${playerNames[current]} rolled ${diceValue}. Click a token to move.`;
+
+      // Optional: auto-highlight movable tokens
+      highlightMovableTokens(diceValue);
+    });
+
+    function highlightMovableTokens(dice) {
+      const current = players[currentPlayerIndex];
+      const movable = tokens.filter(t => t.player === current && !t.finished && canMove(t, dice));
+      document.querySelectorAll('.token').forEach(el => {
+        el.classList.remove('clickable');
+      });
+      movable.forEach(t => {
+        const el = document.querySelector(
+          `.token[data-player="${t.player}"][data-token-id="${t.id}"]`
+        );
+        if (el) el.classList.add('clickable');
+      });
+    }
+
+    function canMove(tok, dice) {
+      if (tok.position === -1) return dice === 6;
+      return true; // simplified: always can move on track
+    }
+
+    // Init
+    updateTurnUI();
+    renderTokens();
+  </script>
+</body>
+</html>
