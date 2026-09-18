@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#090b18">
-<title>Ludo V4 — Royal 3D Edition</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070914">
+<title>Ludo V5 — Ultimate Edition</title>
 
 <style>
 *{
@@ -13,15 +13,15 @@
 }
 
 :root{
-  --bg:#070916;
-  --panel:#10152b;
-  --panel2:#171d38;
-  --gold:#ffd76a;
-  --text:#f7f8ff;
-  --muted:#aeb6d4;
-  --red:#ff405c;
-  --green:#24d68b;
-  --yellow:#ffd43b;
+  --bg:#060812;
+  --panel:#10152a;
+  --panel2:#171d35;
+  --gold:#ffd45a;
+  --white:#f8f9ff;
+  --muted:#aeb7d3;
+  --red:#ff3f5c;
+  --green:#20d98a;
+  --yellow:#ffd12f;
   --blue:#438cff;
 }
 
@@ -29,10 +29,10 @@ html,body{
   margin:0;
   min-height:100%;
   background:
-    radial-gradient(circle at 20% 10%,rgba(85,60,180,.25),transparent 30%),
-    radial-gradient(circle at 80% 80%,rgba(0,170,255,.14),transparent 30%),
+    radial-gradient(circle at 15% 10%,rgba(120,65,255,.20),transparent 28%),
+    radial-gradient(circle at 85% 80%,rgba(0,170,255,.15),transparent 30%),
     var(--bg);
-  color:var(--text);
+  color:var(--white);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
@@ -50,17 +50,17 @@ button{
 }
 
 .app{
-  width:min(1180px,100%);
+  width:min(1200px,100%);
   margin:auto;
-  padding:12px;
+  padding:10px;
 }
 
 header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .brand{
@@ -70,28 +70,24 @@ header{
 }
 
 .logo{
-  width:48px;
-  height:48px;
+  width:47px;
+  height:47px;
   border-radius:15px;
   display:grid;
   place-items:center;
-  font-size:27px;
-  background:
-    linear-gradient(145deg,#ffe991,#e9a927);
-  box-shadow:
-    0 7px 25px rgba(255,190,50,.25),
-    inset 0 2px 4px rgba(255,255,255,.8);
+  font-size:26px;
+  background:linear-gradient(145deg,#fff0a0,#f0aa24);
+  box-shadow:0 8px 25px rgba(255,190,40,.25);
 }
 
 .title{
-  font-size:clamp(20px,4vw,31px);
-  font-weight:900;
-  letter-spacing:.5px;
+  font-size:clamp(21px,4vw,32px);
+  font-weight:950;
 }
 
 .subtitle{
+  font-size:11px;
   color:var(--muted);
-  font-size:12px;
 }
 
 .header-actions{
@@ -104,48 +100,47 @@ header{
   height:42px;
   border-radius:13px;
   color:white;
-  background:rgba(255,255,255,.08);
+  background:rgba(255,255,255,.07);
   border:1px solid rgba(255,255,255,.08);
-  transition:.2s;
 }
 
 .icon-btn:active{
   transform:scale(.9);
 }
 
-.game-layout{
+.layout{
   display:grid;
-  grid-template-columns:minmax(300px,760px) minmax(240px,330px);
+  grid-template-columns:minmax(300px,760px) minmax(240px,340px);
   gap:14px;
   align-items:start;
 }
 
 .board-card,
-.side-card{
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+.card{
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.07),
+    rgba(255,255,255,.025)
+  );
   border:1px solid rgba(255,255,255,.09);
-  border-radius:24px;
   box-shadow:
-    0 20px 60px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.08);
+    0 20px 65px rgba(0,0,0,.38),
+    inset 0 1px rgba(255,255,255,.07);
   backdrop-filter:blur(14px);
 }
 
 .board-card{
-  padding:12px;
+  padding:10px;
+  border-radius:25px;
 }
 
 .board-wrap{
   width:100%;
   aspect-ratio:1;
   position:relative;
-  border-radius:22px;
   overflow:hidden;
-  background:#10152b;
-  box-shadow:
-    inset 0 0 0 2px rgba(255,255,255,.05),
-    0 18px 50px rgba(0,0,0,.4);
+  border-radius:20px;
+  background:#11162b;
 }
 
 canvas{
@@ -158,227 +153,224 @@ canvas{
 .side{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:11px;
 }
 
-.side-card{
-  padding:15px;
+.card{
+  border-radius:20px;
+  padding:14px;
 }
 
-.turn-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.turn-card:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(100deg,rgba(255,255,255,.05),transparent);
-  pointer-events:none;
-}
-
-.turn-label{
+.label{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   text-transform:uppercase;
   letter-spacing:1px;
 }
 
-.turn-player{
+.turn{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-top:6px;
+  margin-top:5px;
 }
 
-.player-dot{
+.turn-dot{
   width:18px;
   height:18px;
   border-radius:50%;
-  box-shadow:0 0 15px currentColor;
+  box-shadow:0 0 16px currentColor;
 }
 
-.player-name{
-  font-size:20px;
+.turn-name{
+  font-size:19px;
   font-weight:900;
 }
 
 .status{
-  margin-top:5px;
   color:var(--muted);
-  font-size:12px;
-  min-height:18px;
+  font-size:11px;
+  margin-top:3px;
+  min-height:16px;
 }
 
-.dice-area{
+.dice-row{
   display:flex;
-  align-items:center;
   justify-content:center;
-  gap:18px;
-  padding:8px 0 3px;
+  align-items:center;
+  gap:17px;
+  margin-top:9px;
 }
 
 .dice{
-  width:84px;
-  height:84px;
-  border-radius:19px;
-  position:relative;
+  width:78px;
+  height:78px;
+  border-radius:18px;
   display:grid;
   place-items:center;
-  color:#111;
-  background:
-    linear-gradient(145deg,#ffffff,#d9dce7);
+  position:relative;
+  background:linear-gradient(145deg,#fff,#d5d9e4);
   box-shadow:
-    0 15px 30px rgba(0,0,0,.35),
+    0 15px 35px rgba(0,0,0,.4),
     inset 0 2px 4px white,
-    inset 0 -5px 10px rgba(0,0,0,.12);
-  transform-style:preserve-3d;
+    inset 0 -6px 10px rgba(0,0,0,.12);
 }
 
 .dice.rolling{
-  animation:diceRoll .7s cubic-bezier(.2,.8,.2,1);
+  animation:roll .72s ease;
 }
 
-@keyframes diceRoll{
+@keyframes roll{
   0%{transform:rotateX(0) rotateY(0) rotateZ(0) scale(1)}
-  25%{transform:rotateX(160deg) rotateY(100deg) rotateZ(50deg) scale(1.08)}
-  55%{transform:rotateX(320deg) rotateY(230deg) rotateZ(130deg) scale(1.13)}
+  30%{transform:rotateX(180deg) rotateY(120deg) rotateZ(60deg) scale(1.12)}
+  65%{transform:rotateX(340deg) rotateY(250deg) rotateZ(145deg) scale(1.08)}
   100%{transform:rotateX(360deg) rotateY(360deg) rotateZ(180deg) scale(1)}
 }
 
 .dots{
-  width:64px;
-  height:64px;
+  width:58px;
+  height:58px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   grid-template-rows:repeat(3,1fr);
-  padding:7px;
+  padding:5px;
 }
 
 .dot{
-  width:12px;
-  height:12px;
-  background:#171923;
+  width:11px;
+  height:11px;
   border-radius:50%;
+  background:#171a24;
   align-self:center;
   justify-self:center;
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.25);
 }
 
-.dice-value{
-  font-size:11px;
-  color:#555;
+.dice-number{
   position:absolute;
-  bottom:4px;
+  bottom:3px;
   right:7px;
-  font-weight:800;
+  font-size:9px;
+  color:#555;
+  font-weight:900;
 }
 
-.roll-btn{
-  min-width:130px;
-  padding:14px 18px;
-  border-radius:16px;
-  color:#18120a;
+.roll{
+  min-width:125px;
+  padding:14px 17px;
+  border-radius:15px;
   font-weight:950;
-  background:
-    linear-gradient(145deg,#fff1a5,#ffc52f);
-  box-shadow:
-    0 10px 25px rgba(255,190,40,.25),
-    inset 0 1px 1px white;
-  transition:.2s;
+  color:#17120a;
+  background:linear-gradient(145deg,#fff0a0,#ffc32c);
+  box-shadow:0 10px 25px rgba(255,190,40,.25);
 }
 
-.roll-btn:hover{
-  transform:translateY(-2px);
-}
-
-.roll-btn:active{
+.roll:active{
   transform:scale(.94);
 }
 
-.roll-btn:disabled{
-  opacity:.45;
+.roll:disabled{
+  opacity:.4;
   cursor:not-allowed;
-  transform:none;
 }
 
 .players{
   display:grid;
-  gap:7px;
+  gap:6px;
+  margin-top:8px;
 }
 
-.player-row{
+.player{
   display:flex;
   align-items:center;
-  gap:9px;
-  padding:10px;
-  border-radius:14px;
-  background:rgba(255,255,255,.045);
+  gap:8px;
+  padding:9px;
+  border-radius:13px;
+  background:rgba(255,255,255,.04);
   border:1px solid transparent;
-  transition:.25s;
 }
 
-.player-row.active{
-  border-color:rgba(255,215,106,.55);
-  background:rgba(255,215,106,.08);
-  transform:translateX(3px);
+.player.active{
+  border-color:rgba(255,215,90,.55);
+  background:rgba(255,215,90,.08);
 }
 
-.row-dot{
-  width:14px;
-  height:14px;
+.pdot{
+  width:13px;
+  height:13px;
   border-radius:50%;
 }
 
-.row-name{
+.pname{
   flex:1;
-  font-weight:800;
   font-size:13px;
+  font-weight:850;
 }
 
-.row-score{
+.pstats{
+  text-align:right;
+  font-size:10px;
   color:var(--muted);
-  font-size:11px;
 }
 
-.progress{
-  height:5px;
+.bar{
+  width:60px;
+  height:4px;
   margin-top:4px;
-  background:rgba(255,255,255,.07);
   border-radius:5px;
+  background:rgba(255,255,255,.07);
   overflow:hidden;
 }
 
-.progress i{
+.bar i{
   display:block;
   height:100%;
-  border-radius:5px;
   transition:width .4s;
 }
 
-.controls{
+.buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:7px;
+  margin-top:8px;
 }
 
-.small-btn{
-  padding:11px;
-  border-radius:13px;
+.small{
+  padding:10px;
+  border-radius:12px;
   color:white;
   background:rgba(255,255,255,.07);
   border:1px solid rgba(255,255,255,.07);
 }
 
-.small-btn:active{
-  transform:scale(.96);
+.info{
+  margin-top:9px;
+  font-size:10px;
+  line-height:1.5;
+  color:var(--muted);
 }
 
-.hint{
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-top:8px;
+}
+
+.stat{
+  text-align:center;
+  padding:9px 4px;
+  border-radius:11px;
+  background:rgba(255,255,255,.045);
+}
+
+.stat b{
+  display:block;
+  font-size:16px;
+}
+
+.stat span{
   color:var(--muted);
-  font-size:11px;
-  line-height:1.5;
+  font-size:9px;
 }
 
 .overlay{
@@ -387,8 +379,8 @@ canvas{
   z-index:100;
   display:none;
   place-items:center;
-  padding:15px;
-  background:rgba(2,3,12,.78);
+  padding:14px;
+  background:rgba(2,3,12,.8);
   backdrop-filter:blur(13px);
 }
 
@@ -397,62 +389,86 @@ canvas{
 }
 
 .modal{
-  width:min(470px,100%);
+  width:min(480px,100%);
   max-height:92vh;
   overflow:auto;
-  padding:23px;
-  border-radius:27px;
-  background:
-    linear-gradient(145deg,#171d3b,#0c1022);
+  padding:22px;
+  border-radius:26px;
+  background:linear-gradient(145deg,#181e3b,#0c1021);
   border:1px solid rgba(255,255,255,.12);
   box-shadow:0 30px 90px rgba(0,0,0,.55);
-  animation:modalIn .35s ease;
+  animation:modalIn .3s ease;
 }
 
 @keyframes modalIn{
-  from{opacity:0;transform:translateY(25px) scale(.94)}
-  to{opacity:1;transform:none}
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 .modal h2{
-  margin:0 0 4px;
+  margin:0;
   font-size:28px;
 }
 
 .modal p{
   color:var(--muted);
-  font-size:13px;
-}
-
-.form-group{
-  margin-top:15px;
-}
-
-.form-group label{
-  display:block;
-  color:var(--muted);
   font-size:12px;
+}
+
+.field{
+  margin-top:13px;
+}
+
+.field label{
+  display:block;
   margin-bottom:6px;
+  color:var(--muted);
+  font-size:11px;
 }
 
-.form-control{
+.input,
+.select{
   width:100%;
-  padding:13px;
-  border-radius:13px;
+  padding:12px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,.1);
-  outline:0;
-  background:#090d1d;
+  background:#080c1b;
   color:white;
+  outline:none;
 }
 
-.start-btn{
+.mode-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.mode{
+  padding:11px 5px;
+  border-radius:12px;
+  color:white;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.mode.selected{
+  border-color:var(--gold);
+  background:rgba(255,215,90,.12);
+}
+
+.start{
   width:100%;
-  margin-top:18px;
-  padding:15px;
-  border-radius:15px;
+  padding:14px;
+  margin-top:17px;
+  border-radius:14px;
   font-weight:950;
-  color:#18120a;
-  background:linear-gradient(145deg,#fff0a1,#ffc62f);
+  background:linear-gradient(145deg,#fff0a0,#ffc32c);
 }
 
 .winner{
@@ -460,39 +476,45 @@ canvas{
 }
 
 .trophy{
-  font-size:70px;
-  animation:trophy 1.3s infinite alternate ease-in-out;
+  font-size:72px;
+  animation:trophy 1s infinite alternate ease-in-out;
 }
 
 @keyframes trophy{
-  to{transform:translateY(-10px) rotate(3deg)}
+  to{
+    transform:translateY(-9px) rotate(4deg);
+  }
 }
 
 .winner h2{
-  font-size:34px;
+  font-size:32px;
 }
 
 .confetti{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:150;
+  z-index:200;
 }
 
 .confetti i{
   position:absolute;
   width:7px;
   height:14px;
-  animation:confettiFall 1.8s linear forwards;
+  animation:fall 1.8s linear forwards;
 }
 
-@keyframes confettiFall{
-  from{transform:translateY(-30px) rotate(0)}
-  to{transform:translateY(105vh) rotate(720deg)}
+@keyframes fall{
+  from{
+    transform:translateY(-30px) rotate(0);
+  }
+  to{
+    transform:translateY(105vh) rotate(720deg);
+  }
 }
 
 @media(max-width:820px){
-  .game-layout{
+  .layout{
     grid-template-columns:1fr;
   }
 
@@ -509,57 +531,34 @@ canvas{
 
 @media(max-width:520px){
   .app{
-    padding:7px;
-  }
-
-  header{
-    margin-bottom:7px;
-  }
-
-  .logo{
-    width:42px;
-    height:42px;
-    border-radius:13px;
-  }
-
-  .title{
-    font-size:20px;
-  }
-
-  .subtitle{
-    font-size:10px;
+    padding:6px;
   }
 
   .board-card{
-    padding:7px;
+    padding:6px;
     border-radius:18px;
   }
 
   .board-wrap{
-    border-radius:16px;
-  }
-
-  .side{
-    display:flex;
+    border-radius:15px;
   }
 
   .dice{
-    width:70px;
-    height:70px;
+    width:68px;
+    height:68px;
   }
 
-  .dots{
-    transform:scale(.82);
+  .dice-row{
+    gap:10px;
   }
 
-  .roll-btn{
-    min-width:115px;
-    padding:12px;
+  .roll{
+    min-width:110px;
+    padding:12px 9px;
   }
 
   .modal{
     padding:18px;
-    border-radius:22px;
   }
 }
 </style>
@@ -574,1920 +573,2634 @@ canvas{
     <div class="logo">🎲</div>
     <div>
       <div class="title">Ludo Royal</div>
-      <div class="subtitle">V4 • 3D Edition</div>
+      <div class="subtitle">V5 • Ultimate Edition</div>
     </div>
   </div>
 
   <div class="header-actions">
-    <button class="icon-btn" id="soundBtn" title="Sound">🔊</button>
-    <button class="icon-btn" id="newBtn" title="New Game">↻</button>
+    <button class="icon-btn" id="soundBtn">🔊</button>
+    <button class="icon-btn" id="newBtn">↻</button>
   </div>
 </header>
 
-<div class="game-layout">
+<div class="layout">
 
-  <section class="board-card">
-    <div class="board-wrap">
-      <canvas id="board"></canvas>
-    </div>
-  </section>
+<section class="board-card">
+  <div class="board-wrap">
+    <canvas id="board"></canvas>
+  </div>
+</section>
 
-  <aside class="side">
+<aside class="side">
 
-    <div class="side-card turn-card">
-      <div class="turn-label">Current Turn</div>
+<div class="card turn-card">
+  <div class="label">Current Turn</div>
 
-      <div class="turn-player">
-        <div class="player-dot" id="turnDot"></div>
-        <div>
-          <div class="player-name" id="turnName">You</div>
-          <div class="status" id="status">Roll the dice</div>
-        </div>
-      </div>
+  <div class="turn">
+    <div class="turn-dot" id="turnDot"></div>
 
-      <div class="dice-area">
-        <div class="dice" id="dice">
-          <div class="dots" id="dots"></div>
-          <div class="dice-value" id="diceValue">—</div>
-        </div>
-
-        <button class="roll-btn" id="rollBtn">ROLL DICE</button>
+    <div>
+      <div class="turn-name" id="turnName">You</div>
+      <div class="status" id="status">
+        Start a new game.
       </div>
     </div>
+  </div>
 
-    <div class="side-card players-card">
-      <div class="turn-label">Players</div>
-      <div class="players" id="players"></div>
+  <div class="dice-row">
+    <div class="dice" id="dice">
+      <div class="dots" id="dots"></div>
+      <div class="dice-number" id="diceNumber">—</div>
     </div>
 
-    <div class="side-card">
-      <div class="turn-label">Controls</div>
-      <div class="controls">
-        <button class="small-btn" id="settingsBtn">⚙️ Settings</button>
-        <button class="small-btn" id="restartBtn">🔄 Restart</button>
-      </div>
-      <p class="hint">
-        Tap a glowing token after rolling. Roll 6 to leave the yard.
-        Reach the center with all four tokens to win.
-      </p>
-    </div>
-
-  </aside>
-
-</div>
-</div>
-
-<div class="overlay show" id="startOverlay">
-  <div class="modal">
-    <h2>👑 Ludo Royal</h2>
-    <p>V4 • Choose your player settings.</p>
-
-    <div class="form-group">
-      <label>Your Name</label>
-      <input id="nameInput" class="form-control" maxlength="18"
-             placeholder="Enter your name">
-    </div>
-
-    <div class="form-group">
-      <label>Bot Difficulty</label>
-      <select id="difficultyInput" class="form-control">
-        <option value="easy">Easy</option>
-        <option value="normal" selected>Normal</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
-
-    <button class="start-btn" id="startBtn">
-      START ROYAL GAME
+    <button class="roll" id="rollBtn">
+      ROLL DICE
     </button>
   </div>
 </div>
+
+<div class="card players-card">
+  <div class="label">Players</div>
+  <div class="players" id="players"></div>
+</div>
+
+<div class="card">
+  <div class="label">Game Statistics</div>
+
+  <div class="stats">
+    <div class="stat">
+      <b id="movesStat">0</b>
+      <span>MOVES</span>
+    </div>
+
+    <div class="stat">
+      <b id="capturesStat">0</b>
+      <span>CAPTURES</span>
+    </div>
+
+    <div class="stat">
+      <b id="sixesStat">0</b>
+      <span>SIXES</span>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="small" id="saveBtn">
+      💾 Save
+    </button>
+
+    <button class="small" id="resumeBtn">
+      ▶ Resume
+    </button>
+
+    <button class="small" id="settingsBtn">
+      ⚙️ Settings
+    </button>
+
+    <button class="small" id="restartBtn">
+      🔄 Restart
+    </button>
+  </div>
+
+  <div class="info">
+    ⭐ Safe squares cannot be captured.
+    <br>
+    🧱 Two or more same-color tokens form a blockade.
+    <br>
+    🎲 Three consecutive sixes cancel the turn.
+  </div>
+</div>
+
+</aside>
+</div>
+</div>
+
+<!-- START MODAL -->
+
+<div class="overlay show" id="setupOverlay">
+
+<div class="modal">
+
+<h2>👑 Ludo Royal V5</h2>
+
+<p>
+Create your game and choose the number of opponents.
+</p>
+
+<div class="field">
+<label>YOUR NAME</label>
+<input
+  id="nameInput"
+  class="input"
+  maxlength="18"
+  placeholder="Enter your name">
+</div>
+
+<div class="field">
+<label>PLAYERS</label>
+
+<div class="mode-grid">
+
+<button class="mode" data-players="2">
+2 Players
+</button>
+
+<button class="mode selected" data-players="3">
+3 Players
+</button>
+
+<button class="mode" data-players="4">
+4 Players
+</button>
+
+</div>
+</div>
+
+<div class="field">
+<label>BOT DIFFICULTY</label>
+
+<select id="difficulty" class="select">
+<option value="easy">Easy</option>
+<option value="normal" selected>Normal</option>
+<option value="hard">Hard</option>
+</select>
+</div>
+
+<button class="start" id="startBtn">
+START GAME
+</button>
+
+</div>
+</div>
+
+<!-- WINNER -->
 
 <div class="overlay" id="winnerOverlay">
-  <div class="modal winner">
-    <div class="trophy">🏆</div>
-    <h2 id="winnerTitle">You Win!</h2>
-    <p id="winnerText"></p>
-    <button class="start-btn" id="winnerRestart">
-      PLAY AGAIN
-    </button>
-  </div>
+
+<div class="modal winner">
+
+<div class="trophy">🏆</div>
+
+<h2 id="winnerTitle">
+You Win!
+</h2>
+
+<p id="winnerText"></p>
+
+<button class="start" id="againBtn">
+PLAY AGAIN
+</button>
+
+</div>
 </div>
 
 <div class="confetti" id="confetti"></div>
 
 <script>
 /* =========================================================
-   LUDO ROYAL V4
-   Single-file game
+   LUDO ROYAL V5
+   Complete single-file Ludo game
 ========================================================= */
 
-const canvas = document.getElementById("board");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("board");
+const ctx=canvas.getContext("2d");
 
-const rollBtn = document.getElementById("rollBtn");
-const diceEl = document.getElementById("dice");
-const dotsEl = document.getElementById("dots");
-const diceValueEl = document.getElementById("diceValue");
+const rollBtn=document.getElementById("rollBtn");
+const diceEl=document.getElementById("dice");
+const dotsEl=document.getElementById("dots");
+const diceNumber=document.getElementById("diceNumber");
 
-const statusEl = document.getElementById("status");
-const turnNameEl = document.getElementById("turnName");
-const turnDotEl = document.getElementById("turnDot");
-const playersEl = document.getElementById("players");
+const turnName=document.getElementById("turnName");
+const turnDot=document.getElementById("turnDot");
+const statusEl=document.getElementById("status");
+const playersEl=document.getElementById("players");
 
-const startOverlay = document.getElementById("startOverlay");
-const winnerOverlay = document.getElementById("winnerOverlay");
+const setupOverlay=document.getElementById("setupOverlay");
+const winnerOverlay=document.getElementById("winnerOverlay");
 
-const nameInput = document.getElementById("nameInput");
-const difficultyInput = document.getElementById("difficultyInput");
-
-const COLORS = [
-  "#ff405c",
-  "#24d68b",
-  "#ffd43b",
-  "#438cff"
+const COLORS=[
+ "#ff405c",
+ "#20d98a",
+ "#ffd12f",
+ "#438cff"
 ];
 
-const DARK = [
-  "#a90d2c",
-  "#0a9360",
-  "#b28a00",
-  "#1758b9"
+const DARK=[
+ "#a50d2b",
+ "#07895b",
+ "#ae8400",
+ "#1558b8"
 ];
 
-const LIGHT = [
-  "#ff7186",
-  "#6af0b8",
-  "#ffe990",
-  "#80b3ff"
-];
-
-const NAMES = [
-  "You",
-  "Green Bot",
-  "Yellow Bot",
-  "Blue Bot"
+const LIGHT=[
+ "#ff7890",
+ "#72f0bc",
+ "#fff09a",
+ "#80b3ff"
 ];
 
 /*
-   Standard 52-cell perimeter.
+  52-cell perimeter.
 */
-const ROUTE = [
-  [6,1],[6,2],[6,3],[6,4],[6,5],
-  [5,6],[4,6],[3,6],[2,6],[1,6],
-  [0,6],[0,7],[0,8],
-  [1,8],[2,8],[3,8],[4,8],[5,8],
-  [6,9],[6,10],[6,11],[6,12],[6,13],
-  [7,13],[8,13],
-  [8,12],[8,11],[8,10],[8,9],
-  [9,8],[10,8],[11,8],[12,8],[13,8],
-  [14,8],[14,7],[14,6],
-  [13,6],[12,6],[11,6],[10,6],[9,6],
-  [8,5],[8,4],[8,3],[8,2],[8,1],
-  [8,0],[7,0],[6,0]
+const ROUTE=[
+ [6,1],[6,2],[6,3],[6,4],[6,5],
+ [5,6],[4,6],[3,6],[2,6],[1,6],
+ [0,6],[0,7],[0,8],
+ [1,8],[2,8],[3,8],[4,8],[5,8],
+ [6,9],[6,10],[6,11],[6,12],[6,13],
+ [7,13],[8,13],
+ [8,12],[8,11],[8,10],[8,9],
+ [9,8],[10,8],[11,8],[12,8],[13,8],
+ [14,8],[14,7],[14,6],
+ [13,6],[12,6],[11,6],[10,6],[9,6],
+ [8,5],[8,4],[8,3],[8,2],[8,1],
+ [8,0],[7,0],[6,0]
 ];
 
-/*
-  Player starting indexes on the route.
-*/
-const START = [0,13,26,39];
+const START=[0,13,26,39];
 
-/*
-  Safe cells.
-*/
-const SAFE = new Set([0,8,13,21,26,34,39,47]);
+const SAFE=new Set([
+  0,8,13,21,26,34,39,47
+]);
 
-/*
-  Yard positions.
-*/
-const YARD = [
-  [[1.8,1.8],[4.2,1.8],[1.8,4.2],[4.2,4.2]],
-  [[10.8,1.8],[13.2,1.8],[10.8,4.2],[13.2,4.2]],
-  [[10.8,10.8],[13.2,10.8],[10.8,13.2],[13.2,13.2]],
-  [[1.8,10.8],[4.2,10.8],[1.8,13.2],[4.2,13.2]]
+const YARD=[
+ [
+  [1.8,1.8],
+  [4.2,1.8],
+  [1.8,4.2],
+  [4.2,4.2]
+ ],
+ [
+  [10.8,1.8],
+  [13.2,1.8],
+  [10.8,4.2],
+  [13.2,4.2]
+ ],
+ [
+  [10.8,10.8],
+  [13.2,10.8],
+  [10.8,13.2],
+  [13.2,13.2]
+ ],
+ [
+  [1.8,10.8],
+  [4.2,10.8],
+  [1.8,13.2],
+  [4.2,13.2]
+ ]
 ];
 
-let W = 600;
-let cell = 40;
+const LANES=[
+ [
+  [7,1],[7,2],[7,3],[7,4],[7,5]
+ ],
+ [
+  [1,7],[2,7],[3,7],[4,7],[5,7]
+ ],
+ [
+  [7,9],[7,10],[7,11],[7,12],[7,13]
+ ],
+ [
+  [9,7],[10,7],[11,7],[12,7],[13,7]
+ ]
+];
 
-let players = [];
-let current = 0;
-let dice = 0;
-let rolled = false;
-let busy = false;
-let soundOn = true;
-let gameStarted = false;
-let difficulty = "normal";
-let playerName = "You";
+let W=600;
+let cell=40;
 
-let legalTokens = [];
-let particles = [];
-let trails = [];
+let players=[];
+let playerCount=3;
+let current=0;
+let dice=0;
+let rolled=false;
+let busy=false;
+let gameStarted=false;
 
-let audioCtx = null;
+let difficulty="normal";
+let playerName="You";
 
-/* ---------------------------------------------------------
-   Utility
---------------------------------------------------------- */
+let legal=[];
+let particles=[];
+let trails=[];
 
-function clamp(v,a,b){
-  return Math.max(a,Math.min(b,v));
-}
+let sixStreak=0;
+
+let stats={
+ moves:0,
+ captures:0,
+ sixes:0
+};
+
+let soundOn=true;
+let audioCtx=null;
+
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function sleep(ms){
-  return new Promise(r=>setTimeout(r,ms));
+ return new Promise(r=>setTimeout(r,ms));
 }
 
 function rand(a,b){
-  return Math.floor(Math.random()*(b-a+1))+a;
+ return Math.floor(Math.random()*(b-a+1))+a;
 }
 
-/* ---------------------------------------------------------
-   Audio
---------------------------------------------------------- */
+function clamp(v,a,b){
+ return Math.max(a,Math.min(b,v));
+}
+
+/* =========================================================
+   AUDIO
+========================================================= */
 
 function beep(freq=440,duration=.08,type="sine"){
-  if(!soundOn) return;
 
-  try{
-    if(!audioCtx){
-      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    }
+ if(!soundOn)return;
 
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
+ try{
 
-    o.type = type;
-    o.frequency.value = freq;
+  if(!audioCtx){
+   audioCtx=new(
+    window.AudioContext||
+    window.webkitAudioContext
+   )();
+  }
 
-    g.gain.setValueAtTime(.0001,audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(.08,audioCtx.currentTime+.01);
-    g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);
+  const osc=audioCtx.createOscillator();
+  const gain=audioCtx.createGain();
 
-    o.connect(g);
-    g.connect(audioCtx.destination);
+  osc.type=type;
+  osc.frequency.value=freq;
 
-    o.start();
-    o.stop(audioCtx.currentTime+duration+.02);
-  }catch(e){}
+  gain.gain.setValueAtTime(
+   .0001,
+   audioCtx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+   .08,
+   audioCtx.currentTime+.01
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+   .0001,
+   audioCtx.currentTime+duration
+  );
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+  osc.stop(
+   audioCtx.currentTime+
+   duration+
+   .02
+  );
+
+ }catch(e){}
 }
 
-/* ---------------------------------------------------------
-   Player setup
---------------------------------------------------------- */
+/* =========================================================
+   PLAYERS
+========================================================= */
 
-function createPlayers(){
+function makePlayers(){
 
-  players = [
-    {
-      name:playerName,
-      color:0,
-      human:true,
-      tokens:[-1,-1,-1,-1],
-      finished:0
-    },
-    {
-      name:"Green Bot",
-      color:1,
-      human:false,
-      tokens:[-1,-1,-1,-1],
-      finished:0
-    },
-    {
-      name:"Yellow Bot",
-      color:2,
-      human:false,
-      tokens:[-1,-1,-1,-1],
-      finished:0
-    },
-    {
-      name:"Blue Bot",
-      color:3,
-      human:false,
-      tokens:[-1,-1,-1,-1],
-      finished:0
-    }
-  ];
+ const names=[
+  playerName,
+  "Green Bot",
+  "Yellow Bot",
+  "Blue Bot"
+ ];
+
+ players=[];
+
+ for(let i=0;i<playerCount;i++){
+
+  players.push({
+   name:names[i],
+   color:i,
+   human:i===0,
+   tokens:[-1,-1,-1,-1],
+   finished:0
+  });
+ }
 }
 
 /*
-  Token progress:
-  -1 = yard
-   0..51 = outer route
-  52..57 = home lane
-  58 = finished
+ -1 = yard
+ 0..51 = outer track
+ 52..56 = home lane
+ 57 = center / completed
 */
 
-function absoluteRoute(player,progress){
+function absoluteRoute(pi,progress){
 
-  if(progress < 0 || progress >= 52) return null;
+ if(progress<0 || progress>=52)
+  return null;
 
-  return (START[player] + progress) % 52;
+ return(
+   START[pi]+progress
+ )%52;
 }
 
-function tokenFinished(p,t){
-  return p.tokens[t] === 58;
-}
+/* =========================================================
+   MOVEMENT RULES
+========================================================= */
 
-function tokenMovable(p,t,d){
+function canMove(pi,ti,d){
 
-  const v = p.tokens[t];
+ const p=players[pi];
+ const v=p.tokens[ti];
 
-  if(v === 58) return false;
+ if(v===57)return false;
 
-  if(v === -1){
-    return d === 6;
-  }
+ if(v===-1)
+  return d===6;
 
-  return v+d <= 58;
-}
+ if(v+d>57)
+  return false;
 
-/* ---------------------------------------------------------
-   Board sizing
---------------------------------------------------------- */
+ /*
+   Blockade crossing rule.
+ */
+ if(v<52){
 
-function resize(){
+  for(let s=1;s<=d;s++){
 
-  const rect = canvas.getBoundingClientRect();
+   const next=v+s;
 
-  W = Math.min(rect.width,rect.height);
-  canvas.width = W * devicePixelRatio;
-  canvas.height = W * devicePixelRatio;
+   if(next>=52)break;
 
-  ctx.setTransform(
-    devicePixelRatio,0,0,devicePixelRatio,0,0
-  );
+   const route=
+     absoluteRoute(pi,next);
 
-  cell = W/15;
-
-  draw();
-}
-
-window.addEventListener("resize",resize);
-
-/* ---------------------------------------------------------
-   Drawing helpers
---------------------------------------------------------- */
-
-function roundedRect(x,y,w,h,r,fill,stroke){
-
-  ctx.beginPath();
-
-  ctx.roundRect(x,y,w,h,r);
-
-  if(fill){
-    ctx.fillStyle=fill;
-    ctx.fill();
-  }
-
-  if(stroke){
-    ctx.strokeStyle=stroke;
-    ctx.stroke();
-  }
-}
-
-function shadowCircle(x,y,r,color,blur=14){
-
-  ctx.save();
-
-  ctx.shadowColor=color;
-  ctx.shadowBlur=blur;
-
-  ctx.fillStyle=color;
-
-  ctx.beginPath();
-  ctx.arc(x,y,r,0,Math.PI*2);
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function cellXY(r,c){
-
-  return {
-    x:c*cell,
-    y:r*cell
-  };
-}
-
-function routeCenter(index){
-
-  const [r,c] = ROUTE[index];
-
-  return {
-    x:c*cell+cell/2,
-    y:r*cell+cell/2
-  };
-}
-
-/* ---------------------------------------------------------
-   Draw board
---------------------------------------------------------- */
-
-function draw(){
-
-  if(!W) return;
-
-  ctx.clearRect(0,0,W,W);
-
-  drawBoardBackground();
-  drawYards();
-  drawRoute();
-  drawHomePaths();
-  drawCenter();
-  drawTrails();
-  drawTokens();
-  drawParticles();
-}
-
-/* ---------------------------------------------------------
-   Background
---------------------------------------------------------- */
-
-function drawBoardBackground(){
-
-  const g=ctx.createLinearGradient(0,0,W,W);
-
-  g.addColorStop(0,"#151a35");
-  g.addColorStop(.5,"#0b1024");
-  g.addColorStop(1,"#171c39");
-
-  ctx.fillStyle=g;
-  ctx.fillRect(0,0,W,W);
-
-  for(let i=0;i<15;i++){
-    for(let j=0;j<15;j++){
-
-      if((i+j)%2===0){
-
-        ctx.fillStyle="rgba(255,255,255,.018)";
-        ctx.fillRect(
-          j*cell,
-          i*cell,
-          cell,
-          cell
-        );
-      }
-    }
-  }
-}
-
-/* ---------------------------------------------------------
-   Yards
---------------------------------------------------------- */
-
-function drawYards(){
-
-  const yards=[
-    {x:0,y:0,color:COLORS[0]},
-    {x:9,y:0,color:COLORS[1]},
-    {x:9,y:9,color:COLORS[2]},
-    {x:0,y:9,color:COLORS[3]}
-  ];
-
-  yards.forEach((q,index)=>{
-
-    const x=q.x*cell;
-    const y=q.y*cell;
-    const size=6*cell;
-
-    ctx.save();
-
-    ctx.shadowColor=q.color;
-    ctx.shadowBlur=20;
-
-    const g=ctx.createLinearGradient(
-      x,y,x+size,y+size
-    );
-
-    g.addColorStop(0,q.color);
-    g.addColorStop(1,DARK[index]);
-
-    roundedRect(
-      x+3,
-      y+3,
-      size-6,
-      size-6,
-      cell*.5,
-      g,
-      "rgba(255,255,255,.16)"
-    );
-
-    ctx.restore();
-
-    /*
-      Inner tray.
-    */
-    roundedRect(
-      x+cell*.65,
-      y+cell*.65,
-      size-cell*1.3,
-      size-cell*1.3,
-      cell*.42,
-      "rgba(255,255,255,.15)",
-      "rgba(255,255,255,.22)"
-    );
-
-    /*
-      Player symbol.
-    */
-    ctx.fillStyle="rgba(255,255,255,.20)";
-    ctx.font=`900 ${cell*1.15}px system-ui`;
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-
-    const symbols=["♟","♟","♟","♟"];
-
-    ctx.fillText(
-      symbols[index],
-      x+size/2,
-      y+size/2
-    );
-  });
-}
-
-/* ---------------------------------------------------------
-   Route
---------------------------------------------------------- */
-
-function drawRoute(){
-
-  ROUTE.forEach((rc,index)=>{
-
-    const [r,c]=rc;
-    const x=c*cell;
-    const y=r*cell;
-
-    let fill="#f0f2fa";
-
-    if(SAFE.has(index)){
-      fill="#fff2a7";
-    }
-
-    roundedRect(
-      x+1.5,
-      y+1.5,
-      cell-3,
-      cell-3,
-      cell*.16,
-      fill,
-      "rgba(0,0,0,.09)"
-    );
-
-    if(SAFE.has(index)){
-
-      ctx.fillStyle="#b58b18";
-      ctx.font=`${cell*.42}px system-ui`;
-      ctx.textAlign="center";
-      ctx.textBaseline="middle";
-
-      ctx.fillText(
-        "★",
-        x+cell/2,
-        y+cell/2
-      );
-    }
-  });
-
-  /*
-    Start arrows.
-  */
-  START.forEach((s,p)=>{
-
-    const pos=routeCenter(s);
-
-    ctx.fillStyle=COLORS[p];
-    ctx.globalAlpha=.35;
-
-    ctx.beginPath();
-    ctx.arc(
-      pos.x,
-      pos.y,
-      cell*.22,
-      0,
-      Math.PI*2
-    );
-    ctx.fill();
-
-    ctx.globalAlpha=1;
-  });
-}
-
-/* ---------------------------------------------------------
-   Home paths
---------------------------------------------------------- */
-
-function drawHomePaths(){
-
-  /*
-    Red
-  */
-  drawLane(
-    [
-      [7,1],[7,2],[7,3],[7,4],[7,5]
-    ],
-    0
-  );
-
-  /*
-    Green
-  */
-  drawLane(
-    [
-      [1,7],[2,7],[3,7],[4,7],[5,7]
-    ],
-    1
-  );
-
-  /*
-    Yellow
-  */
-  drawLane(
-    [
-      [7,9],[7,10],[7,11],[7,12],[7,13]
-    ],
-    2
-  );
-
-  /*
-    Blue
-  */
-  drawLane(
-    [
-      [9,7],[10,7],[11,7],[12,7],[13,7]
-    ],
-    3
-  );
-}
-
-function drawLane(list,p){
-
-  list.forEach(([r,c])=>{
-
-    const x=c*cell;
-    const y=r*cell;
-
-    roundedRect(
-      x+2,
-      y+2,
-      cell-4,
-      cell-4,
-      cell*.15,
-      COLORS[p],
-      "rgba(255,255,255,.16)"
-    );
-
-    ctx.fillStyle="rgba(255,255,255,.15)";
-    ctx.fillRect(
-      x+cell*.18,
-      y+cell*.18,
-      cell*.64,
-      cell*.64
-    );
-  });
-}
-
-/* ---------------------------------------------------------
-   Center
---------------------------------------------------------- */
-
-function drawCenter(){
-
-  const x=6*cell;
-  const y=6*cell;
-  const s=3*cell;
-
-  ctx.save();
-
-  ctx.shadowColor="rgba(255,215,106,.25)";
-  ctx.shadowBlur=25;
-
-  const g=ctx.createLinearGradient(
-    x,y,x+s,y+s
-  );
-
-  g.addColorStop(0,"#fff0a4");
-  g.addColorStop(1,"#b8861c");
-
-  ctx.fillStyle=g;
-
-  ctx.beginPath();
-
-  ctx.moveTo(x,y);
-  ctx.lineTo(x+s,y);
-  ctx.lineTo(x+s,y+s);
-  ctx.lineTo(x,y+s);
-  ctx.closePath();
-
-  ctx.fill();
-
-  ctx.restore();
-
-  /*
-    Four colored triangles.
-  */
-  const cx=7.5*cell;
-  const cy=7.5*cell;
-
-  const points=[
-    [
-      [x,y],
-      [x+s,y],
-      [cx,cy]
-    ],
-    [
-      [x+s,y],
-      [x+s,y+s],
-      [cx,cy]
-    ],
-    [
-      [x+s,y+s],
-      [x,y+s],
-      [cx,cy]
-    ],
-    [
-      [x,y+s],
-      [x,y],
-      [cx,cy]
-    ]
-  ];
-
-  points.forEach((poly,i)=>{
-
-    ctx.beginPath();
-
-    poly.forEach((pt,j)=>{
-      if(j===0)ctx.moveTo(pt[0],pt[1]);
-      else ctx.lineTo(pt[0],pt[1]);
-    });
-
-    ctx.closePath();
-
-    ctx.fillStyle=COLORS[i];
-    ctx.globalAlpha=.88;
-    ctx.fill();
-
-    ctx.globalAlpha=1;
-  });
-
-  ctx.fillStyle="rgba(255,255,255,.9)";
-  ctx.font=`900 ${cell*.48}px system-ui`;
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
-
-  ctx.fillText("★",cx,cy);
-}
-
-/* ---------------------------------------------------------
-   Trails
---------------------------------------------------------- */
-
-function drawTrails(){
-
-  trails.forEach(t=>{
-
-    const alpha=t.life/t.max;
-
-    ctx.save();
-
-    ctx.globalAlpha=alpha*.35;
-    ctx.fillStyle=COLORS[t.color];
-
-    ctx.beginPath();
-
-    ctx.arc(
-      t.x,
-      t.y,
-      cell*.13*(1+(1-alpha)),
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.restore();
-  });
-}
-
-/* ---------------------------------------------------------
-   Token location
---------------------------------------------------------- */
-
-function tokenPosition(pIndex,tIndex){
-
-  const p=players[pIndex];
-  const progress=p.tokens[tIndex];
-
-  if(progress===-1){
-
-    const [gx,gy]=YARD[pIndex][tIndex];
-
-    return {
-      x:gx*cell,
-      y:gy*cell
-    };
-  }
-
-  if(progress===58){
-
-    const center={
-      x:7.5*cell,
-      y:7.5*cell
-    };
-
-    const offsets=[
-      [-.23,-.23],
-      [.23,-.23],
-      [-.23,.23],
-      [.23,.23]
-    ];
-
-    return {
-      x:center.x+offsets[tIndex][0]*cell,
-      y:center.y+offsets[tIndex][1]*cell
-    };
-  }
-
-  if(progress<52){
-
-    return routeCenter(
-      absoluteRoute(pIndex,progress)
-    );
-  }
-
-  /*
-    Home lane.
-  */
-  const laneProgress=progress-52;
-
-  const laneData=[
-    [
-      [7,1],[7,2],[7,3],[7,4],[7,5]
-    ],
-    [
-      [1,7],[2,7],[3,7],[4,7],[5,7]
-    ],
-    [
-      [7,9],[7,10],[7,11],[7,12],[7,13]
-    ],
-    [
-      [9,7],[10,7],[11,7],[12,7],[13,7]
-    ]
-  ];
-
-  if(laneProgress>=0 && laneProgress<5){
-
-    const [r,c]=laneData[pIndex][laneProgress];
-
-    return {
-      x:c*cell+cell/2,
-      y:r*cell+cell/2
-    };
-  }
-
-  return {
-    x:7.5*cell,
-    y:7.5*cell
-  };
-}
-
-/* ---------------------------------------------------------
-   Token stack offsets
---------------------------------------------------------- */
-
-function stackOffset(pIndex,tIndex){
-
-  const pos=players[pIndex].tokens[tIndex];
-
-  if(pos<0 || pos===58) return {x:0,y:0};
-
-  const same=[];
-
-  players.forEach((p,pi)=>{
-    p.tokens.forEach((v,ti)=>{
-      if(v>=0 && v<52 &&
-         absoluteRoute(pi,v)===absoluteRoute(pIndex,pos)){
-        same.push([pi,ti]);
-      }
-    });
-  });
-
-  const idx=same.findIndex(
-    x=>x[0]===pIndex && x[1]===tIndex
-  );
-
-  const offsets=[
-    [-.18,-.18],
-    [.18,-.18],
-    [-.18,.18],
-    [.18,.18]
-  ];
-
-  if(same.length<=1)return {x:0,y:0};
-
-  const o=offsets[idx%4];
-
-  return {
-    x:o[0]*cell,
-    y:o[1]*cell
-  };
-}
-
-/* ---------------------------------------------------------
-   Tokens
---------------------------------------------------------- */
-
-function drawTokens(){
-
-  players.forEach((p,pi)=>{
-
-    p.tokens.forEach((value,ti)=>{
-
-      const pos=tokenPosition(pi,ti);
-      const off=stackOffset(pi,ti);
-
-      const x=pos.x+off.x;
-      const y=pos.y+off.y;
-
-      const movable =
-        pi===current &&
-        legalTokens.includes(ti);
-
-      drawToken(
-        x,
-        y,
-        pi,
-        ti,
-        movable
-      );
-    });
-  });
-}
-
-function drawToken(x,y,p,t,highlight){
-
-  const r=cell*.31;
-
-  if(highlight){
-
-    ctx.save();
-
-    ctx.shadowColor=COLORS[p];
-    ctx.shadowBlur=20;
-
-    ctx.strokeStyle=LIGHT[p];
-    ctx.lineWidth=3;
-
-    ctx.beginPath();
-    ctx.arc(
-      x,
-      y,
-      r+cell*.13+
-      Math.sin(Date.now()/150)*2,
-      0,
-      Math.PI*2
-    );
-
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  /*
-    Shadow.
-  */
-  ctx.save();
-
-  ctx.fillStyle="rgba(0,0,0,.35)";
-  ctx.beginPath();
-  ctx.ellipse(
-    x+2,
-    y+r*.65,
-    r*.8,
-    r*.35,
-    0,
-    0,
-    Math.PI*2
-  );
-  ctx.fill();
-
-  ctx.restore();
-
-  /*
-    Token body.
-  */
-  ctx.save();
-
-  ctx.shadowColor=COLORS[p];
-  ctx.shadowBlur=highlight?20:10;
-
-  const g=ctx.createRadialGradient(
-    x-r*.35,
-    y-r*.4,
-    r*.1,
-    x,
-    y,
-    r*1.2
-  );
-
-  g.addColorStop(0,LIGHT[p]);
-  g.addColorStop(.45,COLORS[p]);
-  g.addColorStop(1,DARK[p]);
-
-  ctx.fillStyle=g;
-
-  ctx.beginPath();
-  ctx.arc(x,y,r,0,Math.PI*2);
-  ctx.fill();
-
-  ctx.restore();
-
-  /*
-    Top shine.
-  */
-  ctx.fillStyle="rgba(255,255,255,.42)";
-
-  ctx.beginPath();
-  ctx.arc(
-    x-r*.32,
-    y-r*.35,
-    r*.2,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-  /*
-    Token number.
-  */
-  ctx.fillStyle="white";
-  ctx.font=`900 ${Math.max(9,r*.75)}px system-ui`;
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
-
-  ctx.shadowColor="rgba(0,0,0,.6)";
-  ctx.shadowBlur=3;
-
-  ctx.fillText(
-    String(t+1),
-    x,
-    y+.5
-  );
-
-  ctx.shadowBlur=0;
-}
-
-/* ---------------------------------------------------------
-   Particles
---------------------------------------------------------- */
-
-function drawParticles(){
-
-  particles.forEach(p=>{
-
-    ctx.save();
-
-    ctx.globalAlpha=p.life/p.max;
-
-    ctx.fillStyle=COLORS[p.color];
-
-    ctx.beginPath();
-
-    ctx.arc(
-      p.x,
-      p.y,
-      p.size,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.restore();
-  });
-}
-
-function burst(x,y,colorIndex,count=22){
-
-  for(let i=0;i<count;i++){
-
-    const a=Math.random()*Math.PI*2;
-    const speed=Math.random()*3+1;
-
-    particles.push({
-      x,
-      y,
-      vx:Math.cos(a)*speed,
-      vy:Math.sin(a)*speed,
-      size:Math.random()*3+1.5,
-      color:colorIndex,
-      life:35+Math.random()*25,
-      max:60
-    });
-  }
-}
-
-/* ---------------------------------------------------------
-   Animation loop
---------------------------------------------------------- */
-
-function animate(){
-
-  particles.forEach(p=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-    p.vy+=.06;
-    p.life--;
-  });
-
-  particles=particles.filter(p=>p.life>0);
-
-  trails.forEach(t=>{
-    t.life--;
-  });
-
-  trails=trails.filter(t=>t.life>0);
-
-  draw();
-
-  requestAnimationFrame(animate);
-}
-
-requestAnimationFrame(animate);
-
-/* ---------------------------------------------------------
-   Dice
---------------------------------------------------------- */
-
-function renderDice(n){
-
-  dotsEl.innerHTML="";
-
-  const maps={
-    1:[4],
-    2:[0,8],
-    3:[0,4,8],
-    4:[0,2,6,8],
-    5:[0,2,4,6,8],
-    6:[0,2,3,5,6,8]
-  };
-
-  const active=maps[n]||[];
-
-  for(let i=0;i<9;i++){
-
-    const d=document.createElement("div");
-
-    d.className="dot";
-
-    if(!active.includes(i)){
-      d.style.opacity="0";
-    }
-
-    dotsEl.appendChild(d);
-  }
-
-  diceValueEl.textContent=n||"—";
-}
-
-/* ---------------------------------------------------------
-   Roll
---------------------------------------------------------- */
-
-async function rollDice(){
-
-  if(busy || rolled || current!==0){
-    if(!players[current].human)return;
-  }
-
-  if(busy || rolled)return;
-
-  busy=true;
-  rollBtn.disabled=true;
-
-  beep(220,.06,"square");
-
-  diceEl.classList.remove("rolling");
-  void diceEl.offsetWidth;
-  diceEl.classList.add("rolling");
-
-  let final=rand(1,6);
-
-  /*
-    Difficulty subtly affects bots later,
-    not the human dice.
-  */
-
-  for(let i=0;i<9;i++){
-
-    renderDice(rand(1,6));
-    await sleep(65);
-  }
-
-  dice=final;
-  renderDice(dice);
-
-  beep(360+dice*50,.12);
-
-  rolled=true;
-  busy=false;
-
-  calculateLegal();
-
-  if(legalTokens.length===0){
-
-    statusEl.textContent="No legal move.";
-
-    await sleep(700);
-
-    if(dice!==6){
-      nextTurn();
-    }else{
-      statusEl.textContent="No move — rolling again.";
-      rolled=false;
-      rollBtn.disabled=false;
-    }
-
-    return;
-  }
-
-  statusEl.textContent =
-    legalTokens.length===1
-      ? "Your legal token is glowing."
-      : "Choose a glowing token.";
-
-  if(!players[current].human){
-
-    await sleep(
-      difficulty==="easy"?650:
-      difficulty==="hard"?350:
-      500
-    );
-
-    botChoose();
-  }
-}
-
-/* ---------------------------------------------------------
-   Legal moves
---------------------------------------------------------- */
-
-function calculateLegal(){
-
-  legalTokens=[];
-
-  const p=players[current];
-
-  for(let t=0;t<4;t++){
-
-    if(tokenMovable(p,t,dice)){
-      legalTokens.push(t);
-    }
-  }
-}
-
-/* ---------------------------------------------------------
-   Token click
---------------------------------------------------------- */
-
-canvas.addEventListener("pointerdown",e=>{
-
-  if(!gameStarted || busy || !rolled)return;
-
-  if(!players[current].human)return;
-
-  const rect=canvas.getBoundingClientRect();
-
-  const x=(e.clientX-rect.left)*
-          (W/rect.width);
-
-  const y=(e.clientY-rect.top)*
-          (W/rect.width);
-
-  let chosen=-1;
-
-  let best=Infinity;
-
-  legalTokens.forEach(t=>{
-
-    const pos=tokenPosition(current,t);
-    const off=stackOffset(current,t);
-
-    const dx=x-(pos.x+off.x);
-    const dy=y-(pos.y+off.y);
-
-    const d=Math.sqrt(dx*dx+dy*dy);
-
-    if(d<cell*.55 && d<best){
-      best=d;
-      chosen=t;
-    }
-  });
-
-  if(chosen>=0){
-    moveToken(current,chosen);
-  }
-});
-
-/* ---------------------------------------------------------
-   Move token
---------------------------------------------------------- */
-
-async function moveToken(pi,ti){
-
-  if(busy)return;
-
-  if(!legalTokens.includes(ti))return;
-
-  busy=true;
-  rollBtn.disabled=true;
-
-  const p=players[pi];
-
-  legalTokens=[];
-
-  /*
-    Leave yard.
-  */
-  if(p.tokens[ti]===-1){
-
-    p.tokens[ti]=0;
-
-    /*
-      Trail burst.
-    */
-    const pos=tokenPosition(pi,ti);
-
-    burst(pos.x,pos.y,pi,15);
-
-    beep(500,.1,"triangle");
-
-    await sleep(320);
-
-  }else{
-
-    /*
-      Animate one progress step at a time.
-    */
-    for(let step=0;step<dice;step++){
-
-      p.tokens[ti]++;
-
-      const pos=tokenPosition(pi,ti);
-
-      trails.push({
-        x:pos.x,
-        y:pos.y,
-        color:pi,
-        life:22,
-        max:22
-      });
-
-      beep(
-        280+step*35,
-        .045,
-        "sine"
-      );
-
-      await sleep(105);
-    }
-  }
-
-  /*
-    Exact finish.
-  */
-  if(p.tokens[ti]===58){
-
-    p.finished++;
-
-    const pos=tokenPosition(pi,ti);
-
-    burst(pos.x,pos.y,pi,35);
-
-    beep(800,.15,"triangle");
-
-    await sleep(450);
-  }
-
-  /*
-    Capture.
-  */
-  if(p.tokens[ti]>=0 && p.tokens[ti]<52){
-
-    await captureOpponents(pi,ti);
-  }
-
-  /*
-    Win.
-  */
-  if(p.finished===4){
-
-    busy=false;
-
-    showWinner(pi);
-
-    return;
-  }
-
-  const extra=dice===6;
-
-  rolled=false;
-  dice=0;
-  legalTokens=[];
-
-  busy=false;
-
-  if(extra){
-
-    statusEl.textContent=
-      `${p.name} rolled 6 — extra turn!`;
-
-    if(p.human){
-      rollBtn.disabled=false;
-    }else{
-      setTimeout(botTurn,350);
-    }
-
-  }else{
-
-    nextTurn();
-  }
-
-  updatePlayers();
-}
-
-/* ---------------------------------------------------------
-   Capture
---------------------------------------------------------- */
-
-async function captureOpponents(pi,ti){
-
-  const p=players[pi];
-
-  const progress=p.tokens[ti];
-
-  if(progress<0 || progress>=52)return;
-
-  const route=absoluteRoute(pi,progress);
-
-  if(SAFE.has(route))return;
-
-  for(let oi=0;oi<players.length;oi++){
+   /*
+     Opponent blockade.
+   */
+   for(let oi=0;oi<players.length;oi++){
 
     if(oi===pi)continue;
 
-    const op=players[oi];
-
-    for(let ot=0;ot<4;ot++){
-
-      const ov=op.tokens[ot];
-
-      if(ov>=0 &&
-         ov<52 &&
-         absoluteRoute(oi,ov)===route){
-
-        const pos=tokenPosition(oi,ot);
-
-        burst(pos.x,pos.y,pi,30);
-
-        beep(130,.16,"sawtooth");
-
-        statusEl.textContent=
-          `${p.name} captured ${op.name}!`;
-
-        await sleep(300);
-
-        op.tokens[ot]=-1;
-
-        return;
-      }
+    if(isBlockade(oi,route)){
+     return false;
     }
+   }
   }
+ }
+
+ return true;
 }
 
-/* ---------------------------------------------------------
-   Turns
---------------------------------------------------------- */
+function isBlockade(pi,route){
+
+ let count=0;
+
+ players[pi].tokens.forEach(v=>{
+
+  if(
+   v>=0 &&
+   v<52 &&
+   absoluteRoute(pi,v)===route
+  ){
+   count++;
+  }
+ });
+
+ return count>=2;
+}
+
+/* =========================================================
+   CAPTURE CHECK
+========================================================= */
+
+function captureTarget(pi,progress){
+
+ if(progress<0 || progress>=52)
+  return null;
+
+ const route=absoluteRoute(pi,progress);
+
+ if(SAFE.has(route))
+  return null;
+
+ for(let oi=0;oi<players.length;oi++){
+
+  if(oi===pi)continue;
+
+  for(let ti=0;ti<4;ti++){
+
+   const v=players[oi].tokens[ti];
+
+   if(
+    v>=0 &&
+    v<52 &&
+    absoluteRoute(oi,v)===route
+   ){
+    return {
+     player:oi,
+     token:ti
+    };
+   }
+  }
+ }
+
+ return null;
+}
+
+/* =========================================================
+   BOARD
+========================================================= */
+
+function resize(){
+
+ const rect=canvas.getBoundingClientRect();
+
+ W=Math.min(
+  rect.width,
+  rect.height
+ );
+
+ canvas.width=W*devicePixelRatio;
+ canvas.height=W*devicePixelRatio;
+
+ ctx.setTransform(
+  devicePixelRatio,
+  0,
+  0,
+  devicePixelRatio,
+  0,
+  0
+ );
+
+ cell=W/15;
+
+ draw();
+}
+
+window.addEventListener(
+ "resize",
+ resize
+);
+
+function routeCenter(index){
+
+ const [r,c]=ROUTE[index];
+
+ return{
+  x:c*cell+cell/2,
+  y:r*cell+cell/2
+ };
+}
+
+function roundedRect(
+ x,y,w,h,r,fill,stroke
+){
+
+ ctx.beginPath();
+ ctx.roundRect(x,y,w,h,r);
+
+ if(fill){
+  ctx.fillStyle=fill;
+  ctx.fill();
+ }
+
+ if(stroke){
+  ctx.strokeStyle=stroke;
+  ctx.stroke();
+ }
+}
+
+/* =========================================================
+   DRAW
+========================================================= */
+
+function draw(){
+
+ ctx.clearRect(
+  0,
+  0,
+  W,
+  W
+ );
+
+ drawBackground();
+ drawYards();
+ drawRoute();
+ drawLanes();
+ drawCenter();
+ drawTrails();
+ drawTokens();
+ drawParticles();
+}
+
+function drawBackground(){
+
+ const g=ctx.createLinearGradient(
+  0,0,W,W
+ );
+
+ g.addColorStop(0,"#161b38");
+ g.addColorStop(.5,"#0a1024");
+ g.addColorStop(1,"#171b36");
+
+ ctx.fillStyle=g;
+ ctx.fillRect(0,0,W,W);
+
+ for(let r=0;r<15;r++){
+
+  for(let c=0;c<15;c++){
+
+   if((r+c)%2===0){
+
+    ctx.fillStyle=
+      "rgba(255,255,255,.018)";
+
+    ctx.fillRect(
+     c*cell,
+     r*cell,
+     cell,
+     cell
+    );
+   }
+  }
+ }
+}
+
+/* =========================================================
+   YARDS
+========================================================= */
+
+function drawYards(){
+
+ const zones=[
+  [0,0],
+  [9,0],
+  [9,9],
+  [0,9]
+ ];
+
+ zones.forEach((z,p)=>{
+
+  const x=z[0]*cell;
+  const y=z[1]*cell;
+  const size=6*cell;
+
+  ctx.save();
+
+  ctx.shadowColor=COLORS[p];
+  ctx.shadowBlur=18;
+
+  const g=ctx.createLinearGradient(
+   x,y,x+size,y+size
+  );
+
+  g.addColorStop(0,LIGHT[p]);
+  g.addColorStop(1,DARK[p]);
+
+  roundedRect(
+   x+3,
+   y+3,
+   size-6,
+   size-6,
+   cell*.48,
+   g,
+   "rgba(255,255,255,.18)"
+  );
+
+  ctx.restore();
+
+  roundedRect(
+   x+cell*.65,
+   y+cell*.65,
+   size-cell*1.3,
+   size-cell*1.3,
+   cell*.4,
+   "rgba(255,255,255,.14)",
+   "rgba(255,255,255,.2)"
+  );
+
+  ctx.fillStyle=
+   "rgba(255,255,255,.17)";
+
+  ctx.font=
+   `900 ${cell*1.1}px system-ui`;
+
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+
+  ctx.fillText(
+   "♟",
+   x+size/2,
+   y+size/2
+  );
+ });
+}
+
+/* =========================================================
+   ROUTE
+========================================================= */
+
+function drawRoute(){
+
+ ROUTE.forEach((rc,index)=>{
+
+  const [r,c]=rc;
+  const x=c*cell;
+  const y=r*cell;
+
+  let fill=
+   SAFE.has(index)
+   ? "#fff0a0"
+   : "#f0f2f8";
+
+  roundedRect(
+   x+1.5,
+   y+1.5,
+   cell-3,
+   cell-3,
+   cell*.15,
+   fill,
+   "rgba(0,0,0,.10)"
+  );
+
+  if(SAFE.has(index)){
+
+   ctx.fillStyle="#9d7816";
+
+   ctx.font=
+    `${cell*.4}px system-ui`;
+
+   ctx.textAlign="center";
+   ctx.textBaseline="middle";
+
+   ctx.fillText(
+    "★",
+    x+cell/2,
+    y+cell/2
+   );
+  }
+ });
+
+ START.forEach((s,p)=>{
+
+  if(p>=playerCount)return;
+
+  const pos=routeCenter(s);
+
+  ctx.fillStyle=COLORS[p];
+  ctx.globalAlpha=.32;
+
+  ctx.beginPath();
+
+  ctx.arc(
+   pos.x,
+   pos.y,
+   cell*.22,
+   0,
+   Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.globalAlpha=1;
+ });
+}
+
+/* =========================================================
+   HOME LANES
+========================================================= */
+
+function drawLanes(){
+
+ for(let p=0;p<playerCount;p++){
+
+  LANES[p].forEach(([r,c])=>{
+
+   const x=c*cell;
+   const y=r*cell;
+
+   roundedRect(
+    x+2,
+    y+2,
+    cell-4,
+    cell-4,
+    cell*.15,
+    COLORS[p],
+    "rgba(255,255,255,.15)"
+   );
+
+   ctx.fillStyle=
+    "rgba(255,255,255,.14)";
+
+   ctx.fillRect(
+    x+cell*.18,
+    y+cell*.18,
+    cell*.64,
+    cell*.64
+   );
+  });
+ }
+}
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+function drawCenter(){
+
+ const x=6*cell;
+ const y=6*cell;
+ const s=3*cell;
+
+ const cx=7.5*cell;
+ const cy=7.5*cell;
+
+ const tris=[
+  [
+   [x,y],
+   [x+s,y],
+   [cx,cy]
+  ],
+  [
+   [x+s,y],
+   [x+s,y+s],
+   [cx,cy]
+  ],
+  [
+   [x+s,y+s],
+   [x,y+s],
+   [cx,cy]
+  ],
+  [
+   [x,y+s],
+   [x,y],
+   [cx,cy]
+  ]
+ ];
+
+ tris.forEach((poly,p)=>{
+
+  if(p>=playerCount){
+   ctx.fillStyle="#33384e";
+  }else{
+   ctx.fillStyle=COLORS[p];
+  }
+
+  ctx.beginPath();
+
+  poly.forEach((pt,i)=>{
+
+   if(i===0)
+    ctx.moveTo(pt[0],pt[1]);
+   else
+    ctx.lineTo(pt[0],pt[1]);
+  });
+
+  ctx.closePath();
+  ctx.fill();
+ });
+
+ ctx.fillStyle="white";
+
+ ctx.font=
+  `900 ${cell*.45}px system-ui`;
+
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+
+ ctx.fillText(
+  "★",
+  cx,
+  cy
+ );
+}
+
+/* =========================================================
+   TOKEN POSITION
+========================================================= */
+
+function tokenPosition(pi,ti){
+
+ const p=players[pi];
+ const v=p.tokens[ti];
+
+ if(v===-1){
+
+  const [gx,gy]=YARD[pi][ti];
+
+  return{
+   x:gx*cell,
+   y:gy*cell
+  };
+ }
+
+ if(v===57){
+
+  const offsets=[
+   [-.23,-.23],
+   [.23,-.23],
+   [-.23,.23],
+   [.23,.23]
+  ];
+
+  return{
+   x:7.5*cell+
+      offsets[ti][0]*cell,
+   y:7.5*cell+
+      offsets[ti][1]*cell
+  };
+ }
+
+ if(v<52)
+  return routeCenter(
+   absoluteRoute(pi,v)
+  );
+
+ const lp=v-52;
+
+ if(lp<5){
+
+  const [r,c]=LANES[pi][lp];
+
+  return{
+   x:c*cell+cell/2,
+   y:r*cell+cell/2
+  };
+ }
+
+ return{
+  x:7.5*cell,
+  y:7.5*cell
+ };
+}
+
+/* =========================================================
+   STACK OFFSETS
+========================================================= */
+
+function stackOffset(pi,ti){
+
+ const v=players[pi].tokens[ti];
+
+ if(v<0 || v>=52)
+  return{x:0,y:0};
+
+ const route=absoluteRoute(pi,v);
+
+ const same=[];
+
+ players.forEach((p,oi)=>{
+
+  p.tokens.forEach((pv,ti2)=>{
+
+   if(
+    pv>=0 &&
+    pv<52 &&
+    absoluteRoute(oi,pv)===route
+   ){
+    same.push([oi,ti2]);
+   }
+  });
+ });
+
+ const index=same.findIndex(
+  x=>x[0]===pi&&x[1]===ti
+ );
+
+ const offsets=[
+  [-.19,-.19],
+  [.19,-.19],
+  [-.19,.19],
+  [.19,.19]
+ ];
+
+ if(same.length<=1)
+  return{x:0,y:0};
+
+ const o=offsets[
+  index%offsets.length
+ ];
+
+ return{
+  x:o[0]*cell,
+  y:o[1]*cell
+ };
+}
+
+/* =========================================================
+   TOKENS
+========================================================= */
+
+function drawTokens(){
+
+ players.forEach((p,pi)=>{
+
+  p.tokens.forEach((v,ti)=>{
+
+   const pos=tokenPosition(pi,ti);
+   const off=stackOffset(pi,ti);
+
+   drawToken(
+    pos.x+off.x,
+    pos.y+off.y,
+    pi,
+    ti,
+    pi===current &&
+    legal.includes(ti)
+   );
+  });
+ });
+}
+
+function drawToken(
+ x,y,p,ti,highlight
+){
+
+ const r=cell*.31;
+
+ if(highlight){
+
+  ctx.save();
+
+  ctx.shadowColor=COLORS[p];
+  ctx.shadowBlur=22;
+
+  ctx.strokeStyle=LIGHT[p];
+  ctx.lineWidth=3;
+
+  ctx.beginPath();
+
+  ctx.arc(
+   x,
+   y,
+   r+cell*.12+
+    Math.sin(Date.now()/150)*2,
+   0,
+   Math.PI*2
+  );
+
+  ctx.stroke();
+
+  ctx.restore();
+ }
+
+ ctx.save();
+
+ ctx.fillStyle=
+  "rgba(0,0,0,.35)";
+
+ ctx.beginPath();
+
+ ctx.ellipse(
+  x+2,
+  y+r*.65,
+  r*.8,
+  r*.35,
+  0,
+  0,
+  Math.PI*2
+ );
+
+ ctx.fill();
+
+ ctx.restore();
+
+ ctx.save();
+
+ ctx.shadowColor=COLORS[p];
+ ctx.shadowBlur=highlight?22:10;
+
+ const g=ctx.createRadialGradient(
+  x-r*.35,
+  y-r*.4,
+  r*.1,
+  x,
+  y,
+  r*1.2
+ );
+
+ g.addColorStop(0,LIGHT[p]);
+ g.addColorStop(.48,COLORS[p]);
+ g.addColorStop(1,DARK[p]);
+
+ ctx.fillStyle=g;
+
+ ctx.beginPath();
+
+ ctx.arc(
+  x,
+  y,
+  r,
+  0,
+  Math.PI*2
+ );
+
+ ctx.fill();
+
+ ctx.restore();
+
+ ctx.fillStyle=
+  "rgba(255,255,255,.4)";
+
+ ctx.beginPath();
+
+ ctx.arc(
+  x-r*.3,
+  y-r*.35,
+  r*.2,
+  0,
+  Math.PI*2
+ );
+
+ ctx.fill();
+
+ ctx.fillStyle="white";
+
+ ctx.font=
+  `900 ${Math.max(9,r*.75)}px system-ui`;
+
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+
+ ctx.shadowColor="rgba(0,0,0,.7)";
+ ctx.shadowBlur=3;
+
+ ctx.fillText(
+  ti+1,
+  x,
+  y
+ );
+
+ ctx.shadowBlur=0;
+}
+
+/* =========================================================
+   TRAILS
+========================================================= */
+
+function drawTrails(){
+
+ trails.forEach(t=>{
+
+  ctx.save();
+
+  ctx.globalAlpha=
+   t.life/t.max*.4;
+
+  ctx.fillStyle=COLORS[t.color];
+
+  ctx.beginPath();
+
+  ctx.arc(
+   t.x,
+   t.y,
+   cell*.12,
+   0,
+   Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.restore();
+ });
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function burst(x,y,color,count=25){
+
+ for(let i=0;i<count;i++){
+
+  const a=Math.random()*Math.PI*2;
+  const speed=Math.random()*3+1;
+
+  particles.push({
+   x,
+   y,
+   vx:Math.cos(a)*speed,
+   vy:Math.sin(a)*speed,
+   size:Math.random()*3+1,
+   color,
+   life:40+Math.random()*25,
+   max:65
+  });
+ }
+}
+
+function drawParticles(){
+
+ particles.forEach(p=>{
+
+  ctx.save();
+
+  ctx.globalAlpha=
+   p.life/p.max;
+
+  ctx.fillStyle=COLORS[p.color];
+
+  ctx.beginPath();
+
+  ctx.arc(
+   p.x,
+   p.y,
+   p.size,
+   0,
+   Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.restore();
+ });
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+function loop(){
+
+ particles.forEach(p=>{
+
+  p.x+=p.vx;
+  p.y+=p.vy;
+
+  p.vy+=.06;
+
+  p.life--;
+ });
+
+ particles=
+  particles.filter(
+   p=>p.life>0
+  );
+
+ trails.forEach(t=>{
+  t.life--;
+ });
+
+ trails=
+  trails.filter(
+   t=>t.life>0
+  );
+
+ draw();
+
+ requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+
+/* =========================================================
+   DICE
+========================================================= */
+
+function showDice(n){
+
+ dotsEl.innerHTML="";
+
+ const map={
+  1:[4],
+  2:[0,8],
+  3:[0,4,8],
+  4:[0,2,6,8],
+  5:[0,2,4,6,8],
+  6:[0,2,3,5,6,8]
+ };
+
+ const active=map[n]||[];
+
+ for(let i=0;i<9;i++){
+
+  const d=document.createElement("div");
+
+  d.className="dot";
+
+  if(!active.includes(i))
+   d.style.opacity="0";
+
+  dotsEl.appendChild(d);
+ }
+
+ diceNumber.textContent=
+  n||"—";
+}
+
+/* =========================================================
+   ROLL
+========================================================= */
+
+async function rollDice(){
+
+ if(!gameStarted||
+    busy||
+    rolled||
+    !players[current].human)
+  return;
+
+ busy=true;
+ rollBtn.disabled=true;
+
+ beep(220,.06,"square");
+
+ diceEl.classList.remove("rolling");
+ void diceEl.offsetWidth;
+ diceEl.classList.add("rolling");
+
+ let result;
+
+ /*
+   Normal random dice.
+ */
+ result=rand(1,6);
+
+ for(let i=0;i<9;i++){
+
+  showDice(rand(1,6));
+
+  await sleep(55);
+ }
+
+ dice=result;
+
+ showDice(dice);
+
+ stats.sixes+=dice===6?1:0;
+
+ beep(
+  330+dice*55,
+  .12,
+  "triangle"
+ );
+
+ /*
+   Three-six penalty.
+ */
+ if(dice===6){
+
+  sixStreak++;
+
+ }else{
+
+  sixStreak=0;
+ }
+
+ if(sixStreak>=3){
+
+  sixStreak=0;
+  rolled=false;
+  dice=0;
+  busy=false;
+
+  showDice(0);
+
+  statusEl.textContent=
+   "Three 6s! Turn cancelled.";
+
+  beep(120,.25,"sawtooth");
+
+  await sleep(900);
+
+  nextTurn();
+
+  return;
+ }
+
+ rolled=true;
+
+ calculateLegal();
+
+ if(legal.length===0){
+
+  statusEl.textContent=
+   "No legal move.";
+
+  await sleep(700);
+
+  if(dice!==6){
+
+   nextTurn();
+
+  }else{
+
+   rolled=false;
+   dice=0;
+   busy=false;
+   rollBtn.disabled=false;
+
+   statusEl.textContent=
+    "No move — roll again.";
+  }
+
+  return;
+ }
+
+ busy=false;
+
+ statusEl.textContent=
+  legal.length===1
+   ?"Choose the glowing token."
+   :"Select a glowing token.";
+
+ if(!players[current].human){
+
+  setTimeout(
+   botChoose,
+   difficulty==="hard"?280:500
+  );
+ }
+
+}
+
+/* =========================================================
+   LEGAL TOKENS
+========================================================= */
+
+function calculateLegal(){
+
+ legal=[];
+
+ const p=players[current];
+
+ for(let t=0;t<4;t++){
+
+  if(
+   canMove(
+    current,
+    t,
+    dice
+   )
+  ){
+   legal.push(t);
+  }
+ }
+}
+
+/* =========================================================
+   CLICK TOKEN
+========================================================= */
+
+canvas.addEventListener(
+ "pointerdown",
+ e=>{
+
+  if(
+   !gameStarted||
+   busy||
+   !rolled||
+   !players[current].human
+  )return;
+
+  const rect=
+   canvas.getBoundingClientRect();
+
+  const x=
+   (e.clientX-rect.left)*
+   (W/rect.width);
+
+  const y=
+   (e.clientY-rect.top)*
+   (W/rect.width);
+
+  let chosen=-1;
+  let closest=Infinity;
+
+  legal.forEach(t=>{
+
+   const pos=
+    tokenPosition(
+     current,
+     t
+    );
+
+   const off=
+    stackOffset(
+     current,
+     t
+    );
+
+   const dx=
+    x-(pos.x+off.x);
+
+   const dy=
+    y-(pos.y+off.y);
+
+   const dist=
+    Math.sqrt(
+     dx*dx+dy*dy
+    );
+
+   if(
+    dist<cell*.62 &&
+    dist<closest
+   ){
+    closest=dist;
+    chosen=t;
+   }
+  });
+
+  if(chosen>=0)
+   moveToken(
+    current,
+    chosen
+   );
+ }
+);
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+async function moveToken(pi,ti){
+
+ if(busy)return;
+
+ if(!legal.includes(ti))
+  return;
+
+ busy=true;
+ rollBtn.disabled=true;
+
+ const p=players[pi];
+
+ legal=[];
+
+ stats.moves++;
+
+ /*
+   Yard -> start.
+ */
+ if(p.tokens[ti]===-1){
+
+  p.tokens[ti]=0;
+
+  const pos=
+   tokenPosition(pi,ti);
+
+  burst(
+   pos.x,
+   pos.y,
+   pi,
+   18
+  );
+
+  beep(
+   500,
+   .1,
+   "triangle"
+  );
+
+  await sleep(330);
+
+ }else{
+
+  /*
+    Move step-by-step.
+  */
+  for(let s=0;s<dice;s++){
+
+   p.tokens[ti]++;
+
+   const pos=
+    tokenPosition(pi,ti);
+
+   trails.push({
+    x:pos.x,
+    y:pos.y,
+    color:pi,
+    life:25,
+    max:25
+   });
+
+   beep(
+    270+s*35,
+    .04,
+    "sine"
+   );
+
+   await sleep(95);
+  }
+ }
+
+ /*
+   Completed.
+ */
+ if(p.tokens[ti]===57){
+
+  p.finished++;
+
+  const pos=
+   tokenPosition(pi,ti);
+
+  burst(
+   pos.x,
+   pos.y,
+   pi,
+   38
+  );
+
+  beep(
+   850,
+   .16,
+   "triangle"
+  );
+
+  await sleep(450);
+ }
+
+ /*
+   Capture.
+ */
+ const target=
+  captureTarget(
+   pi,
+   p.tokens[ti]
+  );
+
+ if(target){
+
+  const victim=
+   players[target.player];
+
+  const pos=
+   tokenPosition(
+    target.player,
+    target.token
+   );
+
+  burst(
+   pos.x,
+   pos.y,
+   pi,
+   35
+  );
+
+  stats.captures++;
+
+  beep(
+   130,
+   .18,
+   "sawtooth"
+  );
+
+  statusEl.textContent=
+   `${p.name} captured ${victim.name}!`;
+
+  await sleep(350);
+
+  victim.tokens[target.token]=-1;
+ }
+
+ /*
+   Winner.
+ */
+ if(p.finished===4){
+
+  busy=false;
+
+  saveStats();
+
+  showWinner(pi);
+
+  return;
+ }
+
+ const extra=
+  dice===6;
+
+ rolled=false;
+ dice=0;
+ legal=[];
+
+ busy=false;
+
+ updateUI();
+
+ if(extra){
+
+  statusEl.textContent=
+   `${p.name} gets another turn!`;
+
+  if(p.human){
+
+   rollBtn.disabled=false;
+
+  }else{
+
+   setTimeout(
+    botTurn,
+    400
+   );
+  }
+
+ }else{
+
+  sixStreak=0;
+
+  nextTurn();
+ }
+}
+
+/* =========================================================
+   NEXT TURN
+========================================================= */
 
 function nextTurn(){
 
-  current=(current+1)%4;
+ current=
+  (current+1)%
+  playerCount;
 
+ dice=0;
+ rolled=false;
+ legal=[];
+ busy=false;
+
+ showDice(0);
+
+ updateUI();
+
+ if(players[current].human){
+
+  rollBtn.disabled=false;
+
+  statusEl.textContent=
+   "Your turn — roll the dice.";
+
+ }else{
+
+  rollBtn.disabled=true;
+
+  statusEl.textContent=
+   `${players[current].name} is thinking...`;
+
+  setTimeout(
+   botTurn,
+   500
+  );
+ }
+}
+
+/* =========================================================
+   BOT
+========================================================= */
+
+function botTurn(){
+
+ if(
+  busy||
+  players[current].human
+ )return;
+
+ rollBotDice();
+}
+
+async function rollBotDice(){
+
+ busy=true;
+ rollBtn.disabled=true;
+
+ diceEl.classList.remove("rolling");
+ void diceEl.offsetWidth;
+ diceEl.classList.add("rolling");
+
+ await sleep(260);
+
+ let result=rand(1,6);
+
+ /*
+   Hard AI occasionally seeks a 6
+   when tokens remain in yard.
+ */
+ if(
+  difficulty==="hard" &&
+  players[current].tokens.some(
+   v=>v===-1
+  ) &&
+  Math.random()<.25
+ ){
+  result=6;
+ }
+
+ dice=result;
+
+ showDice(dice);
+
+ stats.sixes+=
+  dice===6?1:0;
+
+ if(dice===6)
+  sixStreak++;
+ else
+  sixStreak=0;
+
+ beep(
+  330+dice*50,
+  .1,
+  "triangle"
+ );
+
+ if(sixStreak>=3){
+
+  sixStreak=0;
   dice=0;
   rolled=false;
-  legalTokens=[];
+  busy=false;
+
+  showDice(0);
+
+  statusEl.textContent=
+   "Three 6s — turn cancelled.";
+
+  await sleep(800);
+
+  nextTurn();
+
+  return;
+ }
+
+ rolled=true;
+
+ calculateLegal();
+
+ if(!legal.length){
+
+  await sleep(600);
+
+  if(dice===6){
+
+   rolled=false;
+   dice=0;
+   busy=false;
+
+   statusEl.textContent=
+    "No move — extra roll.";
+
+   setTimeout(
+    botTurn,
+    300
+   );
+
+  }else{
+
+   nextTurn();
+  }
+
+  return;
+ }
+
+ busy=false;
+
+ setTimeout(
+  botChoose,
+  difficulty==="hard"?250:450
+ );
+}
+
+function botChoose(){
+
+ if(
+  busy||
+  !legal.length
+ )return;
+
+ const p=players[current];
+
+ let selected;
+
+ if(difficulty==="easy"){
+
+  selected=
+   legal[
+    Math.floor(
+     Math.random()*legal.length
+    )
+   ];
+
+ }else{
+
+  const options=
+   legal.map(t=>{
+
+    const v=p.tokens[t];
+
+    let score=
+     Math.random()*6;
+
+    /*
+      Start token.
+    */
+    if(
+     v===-1 &&
+     dice===6
+    ){
+     score+=35;
+    }
+
+    /*
+      Finish.
+    */
+    if(
+     v>=0 &&
+     v+dice===57
+    ){
+     score+=110;
+    }
+
+    /*
+      Enter home.
+    */
+    if(
+     v>=0 &&
+     v+dice>=52
+    ){
+     score+=35;
+    }
+
+    /*
+      Capture.
+    */
+    if(
+     v>=0 &&
+     v<52
+    ){
+
+     const target=
+      (START[current]+v+dice)%52;
+
+     if(
+      !SAFE.has(target)
+     ){
+
+      for(
+       let oi=0;
+       oi<playerCount;
+       oi++
+      ){
+
+       if(oi===current)continue;
+
+       for(
+        let ot=0;
+        ot<4;
+        ot++
+       ){
+
+        const ov=
+         players[oi].tokens[ot];
+
+        if(
+         ov>=0 &&
+         ov<52 &&
+         absoluteRoute(
+          oi,
+          ov
+         )===target
+        ){
+         score+=50;
+        }
+       }
+      }
+     }
+    }
+
+    /*
+      Safety.
+    */
+    if(
+     v>=0 &&
+     v+dice<52 &&
+     SAFE.has(
+      absoluteRoute(
+       current,
+       v+dice
+      )
+     )
+    ){
+     score+=12;
+    }
+
+    /*
+      Hard mode values advancement.
+    */
+    if(
+     difficulty==="hard" &&
+     v>=0
+    ){
+     score+=v*.12;
+    }
+
+    return{
+     token:t,
+     score
+    };
+   });
+
+  options.sort(
+   (a,b)=>b.score-a.score
+  );
+
+  selected=
+   options[0].token;
+ }
+
+ moveToken(
+  current,
+  selected
+ );
+}
+
+/* =========================================================
+   UI
+========================================================= */
+
+function updateUI(){
+
+ if(!players.length)return;
+
+ const p=players[current];
+
+ turnName.textContent=p.name;
+
+ turnDot.style.background=
+  COLORS[p.color];
+
+ turnDot.style.color=
+  COLORS[p.color];
+
+ updatePlayers();
+ updateStats();
+}
+
+function updatePlayers(){
+
+ playersEl.innerHTML="";
+
+ players.forEach((p,i)=>{
+
+  const row=
+   document.createElement("div");
+
+  row.className=
+   "player"+
+   (i===current?" active":"");
+
+  const finished=p.finished;
+
+  row.innerHTML=`
+   <div
+    class="pdot"
+    style="background:${COLORS[p.color]}"
+   ></div>
+
+   <div class="pname">
+    ${escapeHTML(p.name)}
+   </div>
+
+   <div class="pstats">
+    ${finished}/4
+    <div class="bar">
+     <i
+      style="
+       width:${finished*25}%;
+       background:${COLORS[p.color]}
+      "
+     ></i>
+    </div>
+   </div>
+  `;
+
+  playersEl.appendChild(row);
+ });
+}
+
+function updateStats(){
+
+ document.getElementById(
+  "movesStat"
+ ).textContent=stats.moves;
+
+ document.getElementById(
+  "capturesStat"
+ ).textContent=stats.captures;
+
+ document.getElementById(
+  "sixesStat"
+ ).textContent=stats.sixes;
+}
+
+function escapeHTML(s){
+
+ return String(s)
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;");
+}
+
+/* =========================================================
+   WINNER
+========================================================= */
+
+function showWinner(pi){
+
+ const p=players[pi];
+
+ document.getElementById(
+  "winnerTitle"
+ ).textContent=
+  pi===0
+   ?"🎉 You Win!"
+   :`${p.name} Wins!`;
+
+ document.getElementById(
+  "winnerText"
+ ).textContent=
+  `${p.name} brought all four tokens home.`;
+
+ winnerOverlay.classList.add(
+  "show"
+ );
+
+ createConfetti();
+
+ beep(700,.14,"triangle");
+
+ setTimeout(
+  ()=>beep(900,.16,"triangle"),
+  160
+ );
+
+ setTimeout(
+  ()=>beep(1100,.2,"triangle"),
+  340
+ );
+}
+
+function createConfetti(){
+
+ const box=
+  document.getElementById(
+   "confetti"
+  );
+
+ box.innerHTML="";
+
+ for(let i=0;i<90;i++){
+
+  const e=
+   document.createElement("i");
+
+  e.style.left=
+   Math.random()*100+"%";
+
+  e.style.top=
+   (-Math.random()*30)+"%";
+
+  e.style.animationDelay=
+   Math.random()*.8+"s";
+
+  e.style.background=
+   COLORS[
+    Math.floor(
+     Math.random()*4
+    )
+   ];
+
+  box.appendChild(e);
+ }
+
+ setTimeout(
+  ()=>box.innerHTML="",
+  3000
+ );
+}
+
+/* =========================================================
+   SAVE / RESUME
+========================================================= */
+
+function saveGame(){
+
+ if(!gameStarted)return;
+
+ const data={
+  playerCount,
+  current,
+  dice,
+  rolled,
+  difficulty,
+  playerName,
+  sixStreak,
+  stats,
+  players,
+  soundOn
+ };
+
+ localStorage.setItem(
+  "ludoV5Save",
+  JSON.stringify(data)
+ );
+
+ statusEl.textContent=
+  "Game saved successfully.";
+
+ beep(600,.08);
+}
+
+function resumeGame(){
+
+ const raw=
+  localStorage.getItem(
+   "ludoV5Save"
+  );
+
+ if(!raw){
+
+  statusEl.textContent=
+   "No saved game found.";
+
+  return;
+ }
+
+ try{
+
+  const data=JSON.parse(raw);
+
+  playerCount=data.playerCount;
+  current=data.current;
+  dice=data.dice;
+  rolled=data.rolled;
+  difficulty=data.difficulty;
+  playerName=data.playerName;
+  sixStreak=data.sixStreak||0;
+  stats=data.stats||{
+   moves:0,
+   captures:0,
+   sixes:0
+  };
+
+  players=data.players;
+
+  soundOn=
+   data.soundOn!==false;
+
+  gameStarted=true;
+
+  setupOverlay.classList.remove(
+   "show"
+  );
+
+  winnerOverlay.classList.remove(
+   "show"
+  );
+
+  showDice(dice);
 
   updateUI();
 
   if(players[current].human){
 
-    rollBtn.disabled=false;
+   rollBtn.disabled=
+    rolled;
 
-    statusEl.textContent="Roll the dice.";
-  }else{
+   statusEl.textContent=
+    rolled
+     ?"Choose your glowing token."
+     :"Your turn — roll the dice.";
 
-    rollBtn.disabled=true;
-
-    statusEl.textContent=
-      `${players[current].name} is thinking...`;
-
-    setTimeout(botTurn,450);
-  }
-}
-
-function botTurn(){
-
-  if(busy || players[current].human)return;
-
-  rollDice();
-}
-
-/* ---------------------------------------------------------
-   Bot AI
---------------------------------------------------------- */
-
-function botChoose(){
-
-  const p=players[current];
-
-  if(!legalTokens.length){
-    nextTurn();
-    return;
-  }
-
-  let chosen;
-
-  if(difficulty==="easy"){
-
-    chosen=
-      legalTokens[
-        Math.floor(Math.random()*legalTokens.length)
-      ];
+   if(rolled)
+    calculateLegal();
 
   }else{
 
-    const scored=legalTokens.map(t=>{
+   rollBtn.disabled=true;
 
-      const v=p.tokens[t];
-      let score=Math.random()*8;
+   statusEl.textContent=
+    `${players[current].name} is thinking...`;
 
-      if(dice===6 && v===-1)score+=30;
-
-      if(v>=0 && v+dice===58)score+=100;
-
-      if(v>=0 && v+dice>51)score+=25;
-
-      /*
-        Capture priority.
-      */
-      if(v>=0 && v<52){
-
-        const target=
-          (START[current]+v+dice)%52;
-
-        if(!SAFE.has(target)){
-
-          for(let oi=0;oi<4;oi++){
-
-            if(oi===current)continue;
-
-            for(let ot=0;ot<4;ot++){
-
-              const ov=players[oi].tokens[ot];
-
-              if(
-                ov>=0 &&
-                ov<52 &&
-                absoluteRoute(oi,ov)===target
-              ){
-                score+=45;
-              }
-            }
-          }
-        }
-      }
-
-      if(difficulty==="hard"){
-
-        score+=
-          Math.max(0,v<0?0:v)*.15;
-
-        if(v>=0 && v<52 &&
-           SAFE.has(
-             absoluteRoute(
-               current,
-               v+dice
-             )
-           )){
-          score+=12;
-        }
-      }
-
-      return {t,score};
-    });
-
-    scored.sort((a,b)=>b.score-a.score);
-
-    chosen=scored[0].t;
+   setTimeout(
+    botTurn,
+    500
+   );
   }
 
-  moveToken(current,chosen);
-}
-
-/* ---------------------------------------------------------
-   UI
---------------------------------------------------------- */
-
-function updateUI(){
-
-  const p=players[current];
-
-  turnNameEl.textContent=p.name;
-  turnDotEl.style.background=COLORS[p.color];
-  turnDotEl.style.color=COLORS[p.color];
-
-  updatePlayers();
-}
-
-function updatePlayers(){
-
-  playersEl.innerHTML="";
-
-  players.forEach((p,i)=>{
-
-    const row=document.createElement("div");
-
-    row.className=
-      "player-row"+
-      (i===current?" active":"");
-
-    const total=p.tokens.filter(
-      v=>v===58
-    ).length;
-
-    const pct=(total/4)*100;
-
-    row.innerHTML=`
-      <div class="row-dot"
-           style="background:${COLORS[p.color]}"></div>
-
-      <div style="flex:1">
-        <div class="row-name">
-          ${escapeHTML(p.name)}
-        </div>
-
-        <div class="progress">
-          <i style="
-            width:${pct}%;
-            background:${COLORS[p.color]}
-          "></i>
-        </div>
-      </div>
-
-      <div class="row-score">
-        ${total}/4
-      </div>
-    `;
-
-    playersEl.appendChild(row);
-  });
-}
-
-function escapeHTML(s){
-
-  return String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;");
-}
-
-/* ---------------------------------------------------------
-   Start game
---------------------------------------------------------- */
-
-function startGame(){
-
-  playerName=
-    nameInput.value.trim() ||
-    "You";
-
-  difficulty=difficultyInput.value;
-
-  localStorage.setItem(
-    "ludoV4Name",
-    playerName
-  );
-
-  localStorage.setItem(
-    "ludoV4Difficulty",
-    difficulty
-  );
-
-  createPlayers();
-
-  current=0;
-  dice=0;
-  rolled=false;
-  busy=false;
-  particles=[];
-  trails=[];
-  legalTokens=[];
-
-  gameStarted=true;
-
-  renderDice(0);
-
-  startOverlay.classList.remove("show");
-
-  updateUI();
-
-  rollBtn.disabled=false;
+ }catch(e){
 
   statusEl.textContent=
-    "Your turn — roll the dice.";
-
-  beep(520,.12,"triangle");
+   "Saved game could not be loaded.";
+ }
 }
 
-/* ---------------------------------------------------------
-   Winner
---------------------------------------------------------- */
+/* =========================================================
+   STATS
+========================================================= */
 
-function showWinner(pi){
+function saveStats(){
 
-  const p=players[pi];
-
-  document.getElementById("winnerTitle").textContent=
-    pi===0 ? "🎉 You Win!" : `${p.name} Wins!`;
-
-  document.getElementById("winnerText").textContent=
-    `${p.name} brought all four tokens home.`;
-
-  winnerOverlay.classList.add("show");
-
-  createConfetti();
-
-  beep(700,.15,"triangle");
-
-  setTimeout(
-    ()=>beep(900,.18,"triangle"),
-    170
+ const old=
+  JSON.parse(
+   localStorage.getItem(
+    "ludoV5Stats"
+   )||"{}"
   );
 
-  setTimeout(
-    ()=>beep(1100,.2,"triangle"),
-    360
-  );
+ old.games=
+  (old.games||0)+1;
+
+ old.captures=
+  (old.captures||0)+stats.captures;
+
+ localStorage.setItem(
+  "ludoV5Stats",
+  JSON.stringify(old)
+ );
 }
 
-function createConfetti(){
-
-  const box=document.getElementById("confetti");
-
-  box.innerHTML="";
-
-  for(let i=0;i<90;i++){
-
-    const el=document.createElement("i");
-
-    el.style.left=
-      Math.random()*100+"%";
-
-    el.style.top=
-      (-Math.random()*30)+"%";
-
-    el.style.animationDelay=
-      Math.random()*.7+"s";
-
-    el.style.background=
-      COLORS[Math.floor(Math.random()*4)];
-
-    el.style.transform=
-      `rotate(${Math.random()*360}deg)`;
-
-    box.appendChild(el);
-  }
-
-  setTimeout(()=>{
-    box.innerHTML="";
-  },2800);
-}
-
-/* ---------------------------------------------------------
-   Restart
---------------------------------------------------------- */
+/* =========================================================
+   RESTART
+========================================================= */
 
 function restart(){
 
-  winnerOverlay.classList.remove("show");
+ winnerOverlay.classList.remove(
+  "show"
+ );
 
-  createPlayers();
+ makePlayers();
+
+ current=0;
+ dice=0;
+ rolled=false;
+ busy=false;
+ sixStreak=0;
+
+ legal=[];
+ particles=[];
+ trails=[];
+
+ stats={
+  moves:0,
+  captures:0,
+  sixes:0
+ };
+
+ gameStarted=true;
+
+ showDice(0);
+
+ updateUI();
+
+ rollBtn.disabled=false;
+
+ statusEl.textContent=
+  "Your turn — roll the dice.";
+
+ localStorage.removeItem(
+  "ludoV5Save"
+ );
+
+ beep(420,.08);
+}
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function openSettings(){
+
+ document.getElementById(
+  "nameInput"
+ ).value=playerName;
+
+ document.getElementById(
+  "difficulty"
+ ).value=difficulty;
+
+ setupOverlay.classList.add(
+  "show"
+ );
+}
+
+/* =========================================================
+   SETUP
+========================================================= */
+
+document
+ .querySelectorAll(".mode")
+ .forEach(btn=>{
+
+  btn.addEventListener(
+   "click",
+   ()=>{
+
+    document
+     .querySelectorAll(".mode")
+     .forEach(x=>
+      x.classList.remove(
+       "selected"
+      )
+     );
+
+    btn.classList.add(
+     "selected"
+    );
+
+    playerCount=
+     Number(
+      btn.dataset.players
+     );
+   }
+  );
+ });
+
+document.getElementById(
+ "startBtn"
+).addEventListener(
+ "click",
+ ()=>{
+
+  const input=
+   document.getElementById(
+    "nameInput"
+   );
+
+  playerName=
+   input.value.trim()||
+   "You";
+
+  difficulty=
+   document.getElementById(
+    "difficulty"
+   ).value;
+
+  localStorage.setItem(
+   "ludoV5Name",
+   playerName
+  );
+
+  localStorage.setItem(
+   "ludoV5Difficulty",
+   difficulty
+  );
+
+  makePlayers();
 
   current=0;
   dice=0;
   rolled=false;
   busy=false;
+  sixStreak=0;
+
+  legal=[];
   particles=[];
   trails=[];
-  legalTokens=[];
 
-  renderDice(0);
+  stats={
+   moves:0,
+   captures:0,
+   sixes:0
+  };
+
+  gameStarted=true;
+
+  showDice(0);
+
+  setupOverlay.classList.remove(
+   "show"
+  );
+
   updateUI();
 
   rollBtn.disabled=false;
 
   statusEl.textContent=
-    "Your turn — roll the dice.";
+   "Your turn — roll the dice.";
 
-  beep(400,.08);
+  beep(550,.12,"triangle");
+ }
+);
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+rollBtn.addEventListener(
+ "click",
+ rollDice
+);
+
+document.getElementById(
+ "newBtn"
+).addEventListener(
+ "click",
+ restart
+);
+
+document.getElementById(
+ "restartBtn"
+).addEventListener(
+ "click",
+ restart
+);
+
+document.getElementById(
+ "againBtn"
+).addEventListener(
+ "click",
+ restart
+);
+
+document.getElementById(
+ "saveBtn"
+).addEventListener(
+ "click",
+ saveGame
+);
+
+document.getElementById(
+ "resumeBtn"
+).addEventListener(
+ "click",
+ resumeGame
+);
+
+document.getElementById(
+ "settingsBtn"
+).addEventListener(
+ "click",
+ openSettings
+);
+
+document.getElementById(
+ "soundBtn"
+).addEventListener(
+ "click",
+ ()=>{
+
+  soundOn=!soundOn;
+
+  document.getElementById(
+   "soundBtn"
+  ).textContent=
+   soundOn?"🔊":"🔇";
+
+  if(soundOn)
+   beep(600,.08);
+ }
+);
+
+/* =========================================================
+   LOAD SAVED SETTINGS
+========================================================= */
+
+const savedName=
+ localStorage.getItem(
+  "ludoV5Name"
+ );
+
+if(savedName){
+
+ document.getElementById(
+  "nameInput"
+ ).value=savedName;
+
+ playerName=savedName;
 }
 
-/* ---------------------------------------------------------
-   Settings
---------------------------------------------------------- */
+const savedDifficulty=
+ localStorage.getItem(
+  "ludoV5Difficulty"
+ );
 
-function openSettings(){
+if(savedDifficulty){
 
-  nameInput.value=playerName;
-  difficultyInput.value=difficulty;
+ difficulty=savedDifficulty;
 
-  startOverlay.classList.add("show");
+ document.getElementById(
+  "difficulty"
+ ).value=
+  savedDifficulty;
 }
 
-/* ---------------------------------------------------------
-   Events
---------------------------------------------------------- */
+/* =========================================================
+   INITIAL
+========================================================= */
 
-rollBtn.addEventListener("click",()=>{
+makePlayers();
 
-  if(!gameStarted)return;
-
-  if(current===0){
-
-    rollDice();
-
-  }else{
-
-    /*
-      Safety: user cannot manually control bots.
-    */
-  }
-});
-
-document.getElementById("startBtn")
-  .addEventListener("click",startGame);
-
-document.getElementById("restartBtn")
-  .addEventListener("click",restart);
-
-document.getElementById("newBtn")
-  .addEventListener("click",restart);
-
-document.getElementById("winnerRestart")
-  .addEventListener("click",restart);
-
-document.getElementById("settingsBtn")
-  .addEventListener("click",openSettings);
-
-document.getElementById("soundBtn")
-  .addEventListener("click",()=>{
-
-    soundOn=!soundOn;
-
-    document.getElementById("soundBtn").textContent=
-      soundOn ? "🔊" : "🔇";
-
-    if(soundOn)beep(600,.08);
-  });
-
-/* ---------------------------------------------------------
-   Load saved settings
---------------------------------------------------------- */
-
-nameInput.value=
-  localStorage.getItem("ludoV4Name") ||
-  "You";
-
-difficultyInput.value=
-  localStorage.getItem("ludoV4Difficulty") ||
-  "normal";
-
-/* ---------------------------------------------------------
-   Initial board
---------------------------------------------------------- */
-
-createPlayers();
-
-renderDice(0);
+showDice(0);
 
 resize();
 
 updateUI();
 
 statusEl.textContent=
-  "Choose your settings to begin.";
+ "Choose your settings to begin.";
 
 </script>
 
